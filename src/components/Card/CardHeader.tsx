@@ -17,7 +17,9 @@ export function CardHeader({
 }: CardHeaderProps) {
     return (
         <div
-            className="flex items-start gap-1 p-4"
+            className={`flex items-start gap-1 p-4 ${
+                isExpandable && "cursor-pointer"
+            }`}
             onClick={(e) => {
                 e.stopPropagation();
                 isExpandable && onToggle?.();

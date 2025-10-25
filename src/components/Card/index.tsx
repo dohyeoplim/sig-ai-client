@@ -1,4 +1,4 @@
-import type { CardProps } from "./type";
+import type { CardProps } from "./types";
 import { useCollapsible } from "./hook";
 import { cardThemes } from "./theme";
 import { CardHeader } from "./CardHeader";
@@ -22,10 +22,7 @@ export default function Card({
 
     return (
         <div
-            className={`rounded-xl ${cardThemes[cardTheme]} ${
-                isExpandable && "cursor-pointer"
-            } ${className ?? ""}`}
-            // onClick={isExpandable ? toggle : undefined}
+            className={`rounded-xl ${cardThemes[cardTheme]} ${className ?? ""}`}
         >
             <CardHeader
                 title={cardTitle}

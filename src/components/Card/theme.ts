@@ -1,4 +1,4 @@
-import type { CardTheme } from "./type";
+import type { CardTheme } from "./types";
 
 export const cardThemes: Record<CardTheme, string> = {
     plain: "bg-white border-[0.3px] border-grey-300",
