@@ -22,7 +22,7 @@ http://scripts.sil.org/OFL
     font-weight: 45 920;
     font-style: normal;
     font-display: swap;
-    src: url("./assets/fonts/PretendardVariable.woff2")
+    src: url("../shared/assets/fonts/PretendardVariable.woff2")
         format("woff2-variations");
 }
 
