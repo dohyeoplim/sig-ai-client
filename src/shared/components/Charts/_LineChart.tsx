@@ -1,25 +1,18 @@
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-
-export const sample = [
-    { name: "Mon", uv: 420, pv: 1800, amt: 1200 },
-    { name: "Tue", uv: 380, pv: 1600, amt: 1100 },
-    { name: "Wed", uv: 460, pv: 2000, amt: 1500 },
-    { name: "Thu", uv: 520, pv: 2400, amt: 1700 },
-    { name: "Fri", uv: 610, pv: 2600, amt: 1900 },
-    { name: "Sat", uv: 580, pv: 2300, amt: 1750 },
-    { name: "Sun", uv: 490, pv: 2100, amt: 1600 },
-];
+import { SAMPLE } from "./data";
 
 export default function _LineChart({ redrawKey = 0 }: { redrawKey: number }) {
     return (
         <LineChart
             key={redrawKey}
-            style={{ width: "100%", aspectRatio: 1.618, maxWidth: 600 }}
+            style={{ width: "100%", aspectRatio: 1.618 }}
             responsive
-            data={sample}
+            data={SAMPLE}
+            margin={{ left: -5, right: 8, top: 8 }}
         >
-            <CartesianGrid />
-            <Line dataKey="uv" />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Line dataKey="pv" stroke="#82ca9d" strokeWidth={1.5} />
+            <Line dataKey="uv" stroke="#8884d8" strokeWidth={1.5} />
             <XAxis dataKey="name" />
             <YAxis />
         </LineChart>
