@@ -16,9 +16,17 @@ export function CardHeader({
     onToggle,
 }: CardHeaderProps) {
     return (
-        <div className="flex items-start gap-1 p-4">
-            <div className="flex flex-col gap-1 flex-1 min-w-0">
-                <h2 className="font-body03 text-grey-900 truncate">{title}</h2>
+        <div
+            className={`flex items-start gap-1 p-4 ${
+                isExpandable && "cursor-pointer"
+            }`}
+            onClick={(e) => {
+                e.stopPropagation();
+                isExpandable && onToggle?.();
+            }}
+        >
+            <div className="flex flex-col flex-1 min-w-0 gap-1">
+                <h2 className="truncate font-body03 text-grey-900">{title}</h2>
                 {description ? (
                     <p className="font-caption02 text-grey-700">
                         {description}
@@ -35,7 +43,7 @@ export function CardHeader({
                         e.stopPropagation();
                         onToggle?.();
                     }}
-                    className="size-8 grid place-items-center rounded-md hover:bg-grey-100 transition-colors"
+                    className="grid transition-colors rounded-md size-8 place-items-center hover:bg-grey-100"
                 >
                     <ChevronRight
                         className={`size-5 text-grey-700 transition-transform ${
