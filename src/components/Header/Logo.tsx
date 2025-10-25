@@ -7,7 +7,7 @@ export default function Logo() {
                 <img
                     src={`${import.meta.env.BASE_URL}logo.svg`}
                     alt="SIG:AI"
-                    className="h-6 w-auto"
+                    className="w-auto h-6"
                 />
             </div>
         </Link>

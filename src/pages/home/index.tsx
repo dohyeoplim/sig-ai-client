@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import { LineChart } from "@/components/Charts";
 
 export default function HomePage() {
     return (
@@ -27,11 +28,9 @@ export default function HomePage() {
                 cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
                 cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
                 isExpandable
-                defaultExpanded={false}
+                defaultExpanded={true}
             >
-                <div className="text-sm text-gray-700">
-                    <p>Children</p>
-                </div>
+                <LineChart />
             </Card>
 
             <Card

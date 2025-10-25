@@ -25,7 +25,7 @@ export default function Card({
             className={`rounded-xl ${cardThemes[cardTheme]} ${
                 isExpandable && "cursor-pointer"
             } ${className ?? ""}`}
-            onClick={isExpandable ? toggle : undefined}
+            // onClick={isExpandable ? toggle : undefined}
         >
             <CardHeader
                 title={cardTitle}
@@ -36,7 +36,7 @@ export default function Card({
             />
 
             <div ref={contentRef} style={contentStyle}>
-                <div className="px-4 pb-4 pt-0">{children}</div>
+                <div className="px-4 pt-0 pb-4">{children}</div>
             </div>
         </div>
     );
