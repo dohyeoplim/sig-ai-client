@@ -1,5 +1,5 @@
-import Card from "@/components/Card";
-import { LineChart } from "@/components/Charts";
+import Card from "@/shared/components/Card";
+import { AreaChart, LineChart } from "@/shared/components/Charts";
 import { useState } from "react";
 
 export default function HomePage() {
@@ -22,9 +22,7 @@ export default function HomePage() {
                 isExpandable
                 defaultExpanded={false}
             >
-                <div className="text-sm text-gray-700">
-                    <p>Children</p>
-                </div>
+                <LineChart redrawKey={animate} />
             </Card>
 
             <Card
@@ -36,7 +34,7 @@ export default function HomePage() {
                     setAnimate((k) => k + 1);
                 }}
             >
-                <LineChart redrawKey={animate} />
+                <AreaChart redrawKey={animate} />
             </Card>
 
             <Card
