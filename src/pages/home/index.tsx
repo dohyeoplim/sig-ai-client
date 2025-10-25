@@ -1,5 +1,5 @@
-import Card from "@/components/Card";
-import { LineChart } from "@/components/Charts";
+import Card from "@/shared/components/Card";
+import { LineChart } from "@/shared/components/Charts";
 import { useState } from "react";
 
 export default function HomePage() {
