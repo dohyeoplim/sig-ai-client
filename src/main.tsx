@@ -8,7 +8,7 @@ import ProfilePage from "./pages/profile/index.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename="/sig-ai-client">
             <Routes>
                 <Route element={<Layout />}>
                     <Route index element={<HomePage />} />
