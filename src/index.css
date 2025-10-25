@@ -1,68 +1,100 @@
+@import "tailwindcss";
+
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-
+    @apply font-pretendard-variable;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-}
-a:hover {
-    color: #535bf2;
+/*
+Copyright (c) 2021 Kil Hyung-jin, with Reserved Font Name Pretendard.
+https://github.com/orioncactus/pretendard
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+*/
+
+@font-face {
+    font-family: "Pretendard Variable";
+    font-weight: 45 920;
+    font-style: normal;
+    font-display: swap;
+    src: url("./assets/fonts/PretendardVariable.woff2")
+        format("woff2-variations");
 }
 
-body {
-    margin: 0;
-    display: flex;
-    place-items: center;
-    min-width: 320px;
-    min-height: 100vh;
+@theme {
+    --font-pretendard-variable: "Pretendard Variable", sans-serif;
 }
 
-h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
-}
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
-button:hover {
-    border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
+@layer utilities {
+    .font-title01 {
+        @apply font-pretendard-variable text-2xl font-semibold leading-8 tracking-tight;
     }
-    a:hover {
-        color: #747bff;
+
+    .font-title02 {
+        @apply font-pretendard-variable text-2xl font-medium leading-8 tracking-tight;
     }
-    button {
-        background-color: #f9f9f9;
+
+    .font-head01 {
+        @apply font-pretendard-variable text-xl font-semibold leading-7 tracking-tight;
     }
+
+    .font-head02 {
+        @apply font-pretendard-variable text-xl font-medium leading-7 tracking-tight;
+    }
+
+    .font-body01 {
+        @apply font-pretendard-variable text-lg font-semibold leading-6 tracking-tight;
+    }
+
+    .font-body02 {
+        @apply font-pretendard-variable text-lg font-medium leading-6 tracking-tight;
+    }
+
+    .font-body03 {
+        @apply font-pretendard-variable text-base font-semibold leading-6 tracking-tight;
+    }
+
+    .font-body04 {
+        @apply font-pretendard-variable text-base font-medium leading-6 tracking-tight;
+    }
+
+    .font-body05 {
+        @apply font-pretendard-variable text-sm font-medium leading-5 tracking-tight;
+    }
+
+    .font-body06 {
+        @apply font-pretendard-variable text-sm font-normal leading-5 tracking-tight;
+    }
+
+    .font-caption01 {
+        @apply font-pretendard-variable text-xs font-semibold leading-3 tracking-normal;
+    }
+
+    .font-caption02 {
+        @apply font-pretendard-variable text-xs font-medium leading-3 tracking-normal;
+    }
+
+    .font-caption03 {
+        @apply font-pretendard-variable text-xs font-normal leading-3 tracking-normal;
+    }
+}
+
+@theme {
+    --color-white: rgba(255, 255, 255, 1);
+    --color-grey-900: rgba(36, 37, 42, 1);
+    --color-grey-800: rgba(63, 65, 72, 1);
+    --color-grey-700: rgba(118, 121, 132, 1);
+    --color-grey-500: rgba(158, 164, 180, 1);
+    --color-grey-300: rgba(198, 200, 209, 1);
+    --color-grey-200: rgba(219, 221, 226, 1);
+    --color-grey-100: rgba(236, 237, 239, 1);
+    --color-key-primary: rgba(26, 83, 25, 1);
+    --color-key-300: rgba(140, 169, 140, 1);
+    --color-key-100: rgba(232, 238, 232, 1);
+    --color-key-50: rgba(243, 247, 243, 1);
 }
