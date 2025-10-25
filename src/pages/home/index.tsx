@@ -1,7 +1,10 @@
 import Card from "@/components/Card";
 import { LineChart } from "@/components/Charts";
+import { useState } from "react";
 
 export default function HomePage() {
+    const [animate, setAnimate] = useState(0);
+
     return (
         <div className="flex flex-col gap-6 pt-6">
             <Card
@@ -28,9 +31,12 @@ export default function HomePage() {
                 cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
                 cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
                 isExpandable
-                defaultExpanded={true}
+                defaultExpanded
+                onExpandedChange={() => {
+                    setAnimate((k) => k + 1);
+                }}
             >
-                <LineChart />
+                <LineChart redrawKey={animate} />
             </Card>
 
             <Card

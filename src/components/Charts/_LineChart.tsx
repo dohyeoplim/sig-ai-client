@@ -10,9 +10,10 @@ export const sample = [
     { name: "Sun", uv: 490, pv: 2100, amt: 1600 },
 ];
 
-export default function _LineChart() {
+export default function _LineChart({ redrawKey = 0 }: { redrawKey: number }) {
     return (
         <LineChart
+            key={redrawKey}
             style={{ width: "100%", aspectRatio: 1.618, maxWidth: 600 }}
             responsive
             data={sample}
