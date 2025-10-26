@@ -9,13 +9,13 @@ export default function Header() {
     const { expanded, toggle, contentMotion } = useCollapsible({});
 
     return (
-        <div className="fixed w-full flex justify-center bg-white px-4 z-999 shadow-xs">
+        <div className="fixed w-full flex justify-center bg-white z-999 shadow-xs">
             <motion.div
                 layout
-                className="flex w-full flex-col"
+                className="flex w-full max-w-2xl px-4 flex-col"
                 transition={SMOOOTH}
             >
-                <div className="flex w-full max-w-2xl h-16 items-center justify-between">
+                <div className="flex w-full h-16 items-center justify-between">
                     <Logo />
                     <MenuButton expanded={expanded} onToggle={toggle} />
                 </div>
