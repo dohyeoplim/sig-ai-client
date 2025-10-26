@@ -6,7 +6,7 @@ export default function HomePage() {
     const [animate, setAnimate] = useState(0);
 
     return (
-        <div className="flex flex-col gap-6 pt-6">
+        <div className="flex flex-col gap-6">
             <Card
                 cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
                 cardDescription={
