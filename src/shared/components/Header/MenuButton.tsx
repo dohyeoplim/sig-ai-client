@@ -10,7 +10,7 @@ export default function MenuButton({ expanded, onToggle }: MenuButtonProps) {
         <div
             onClick={(e) => {
                 e.stopPropagation();
-                onToggle?.();
+                onToggle();
             }}
         >
             <MenuButtonIcon toggled={expanded} />

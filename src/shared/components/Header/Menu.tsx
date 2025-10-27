@@ -1,6 +1,10 @@
 import { ChevronUp } from "lucide-react";
 
-export default function Menu() {
+type MenuProps = {
+    close: () => void;
+};
+
+export default function Menu({ close }: MenuProps) {
     return (
         <div className="flex flex-col gap-4 pb-2">
             <div className="flex flex-col gap-1">
@@ -15,11 +19,16 @@ export default function Menu() {
             <hr className="text-grey-100" />
 
             <p className="font-body01">홈</p>
-            <p className="font-body01">매장</p>
-            <p className="font-body01">상권</p>
-            <p className="font-body01">커뮤니티</p>
+            <p className="font-body01">매장 관리</p>
+            <p className="font-body01">상권 분석</p>
 
-            <div className="flex justify-center">
+            <div
+                className="flex justify-center cursor-pointer"
+                onClick={(e) => {
+                    e.preventDefault();
+                    close();
+                }}
+            >
                 <ChevronUp
                     className="text-grey-500"
                     size={24}

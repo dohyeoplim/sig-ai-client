@@ -6,7 +6,7 @@ import Menu from "./Menu";
 import MenuButton from "./MenuButton";
 
 export default function Header() {
-    const { expanded, toggle, contentMotion } = useCollapsible({});
+    const { expanded, toggle, close, contentMotion } = useCollapsible({});
 
     return (
         <div className="fixed w-full flex justify-center bg-white z-999 shadow-xs">
@@ -21,7 +21,7 @@ export default function Header() {
                 </div>
 
                 <motion.div {...contentMotion}>
-                    <Menu />
+                    <Menu close={close} />
                 </motion.div>
             </motion.div>
         </div>
