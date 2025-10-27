@@ -37,5 +37,10 @@ export function useCollapsible({
         [expanded, setExpanded]
     );
 
-    return { expanded, toggle, contentMotion };
+    const close = useCallback(
+        () => setExpanded(false),
+        [expanded, setExpanded]
+    );
+
+    return { expanded, toggle, close, contentMotion };
 }

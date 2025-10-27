@@ -1,8 +1,11 @@
 import { ChevronRight } from "lucide-react";
+import type { CardTheme } from "./types";
 
 type CardHeaderProps = {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
+    cardTheme?: CardTheme;
+    includeIndicator?: boolean;
     isExpandable?: boolean;
     expanded?: boolean;
     onToggle?: () => void;
@@ -11,13 +14,15 @@ type CardHeaderProps = {
 export function CardHeader({
     title,
     description,
+    cardTheme,
+    includeIndicator,
     isExpandable,
     expanded,
     onToggle,
 }: CardHeaderProps) {
     return (
         <div
-            className={`flex items-start gap-1 p-4 ${
+            className={`flex items-center justify-between gap-1 p-4 ${
                 isExpandable && "cursor-pointer"
             }`}
             onClick={(e) => {
@@ -25,13 +30,23 @@ export function CardHeader({
                 isExpandable && onToggle?.();
             }}
         >
-            <div className="flex flex-col flex-1 min-w-0 gap-1">
-                <h2 className="truncate font-body03 text-grey-900">{title}</h2>
-                {description ? (
-                    <p className="font-caption02 text-grey-700">
-                        {description}
-                    </p>
-                ) : null}
+            <div className="flex items-center gap-1.5">
+                {cardTheme && cardTheme != "plain" && includeIndicator && (
+                    <img
+                        src={`${import.meta.env.BASE_URL}sig=${cardTheme}.png`}
+                        className="h-20"
+                    />
+                )}
+                <div className="flex flex-col gap-1">
+                    <h2 className="truncate font-body03 text-grey-900">
+                        {title}
+                    </h2>
+                    {description ? (
+                        <p className="font-caption02 text-grey-700">
+                            {description}
+                        </p>
+                    ) : null}
+                </div>
             </div>
 
             {isExpandable && (
