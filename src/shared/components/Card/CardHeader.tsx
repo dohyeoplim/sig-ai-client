@@ -30,7 +30,7 @@ export function CardHeader({
                 isExpandable && onToggle?.();
             }}
         >
-            <div className="flex items-center">
+            <div className="flex items-center gap-1.5">
                 {cardTheme && cardTheme != "plain" && includeIndicator && (
                     <img
                         src={`${import.meta.env.BASE_URL}sig=${cardTheme}.png`}
