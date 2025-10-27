@@ -19,6 +19,7 @@ export default function HomePage() {
                     </span>
                 }
                 cardTheme="green"
+                includeIndicator
                 isExpandable
                 defaultExpanded={false}
             >

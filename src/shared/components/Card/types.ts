@@ -2,6 +2,7 @@ export type CardProps = {
     cardTitle: string | React.ReactNode;
     cardDescription?: string | React.ReactNode;
     cardTheme?: CardTheme;
+    includeIndicator?: boolean;
     isExpandable?: boolean;
     defaultExpanded?: boolean;
     expanded?: boolean;

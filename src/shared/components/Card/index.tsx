@@ -9,6 +9,7 @@ export default function Card({
     cardTitle,
     cardDescription,
     cardTheme = "plain",
+    includeIndicator = false,
     isExpandable = false,
     defaultExpanded = false,
     expanded: expandedProp,
@@ -31,6 +32,8 @@ export default function Card({
             <CardHeader
                 title={cardTitle}
                 description={cardDescription}
+                cardTheme={cardTheme}
+                includeIndicator={includeIndicator}
                 isExpandable={isExpandable}
                 expanded={expanded}
                 onToggle={toggle}
