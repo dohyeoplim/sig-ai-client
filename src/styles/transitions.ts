@@ -5,3 +5,9 @@ export const SMOOOTH = {
     mass: 0.8,
     velocity: 0.2,
 };
+
+export const SPRING = {
+    type: "spring" as const,
+    stiffness: 260,
+    damping: 20,
+};

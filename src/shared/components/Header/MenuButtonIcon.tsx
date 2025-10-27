@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { motion, type Variants } from "motion/react";
+import { SPRING } from "@/styles/transitions";
 
 type MenuButtonIconProps = {
     toggled: boolean;
@@ -15,12 +16,57 @@ export default function MenuButtonIcon({
     color = "currentColor",
     className = "",
 }: MenuButtonIconProps) {
-    const half = size / 2;
-    const spacing = 6;
+    const halfSize = size / 2;
+    const lineInset = size * 0.2;
+    const lineSpacing = size * 0.2;
+
+    const xStart = lineInset;
+    const xEnd = size - lineInset;
+
+    const yTop = halfSize - lineSpacing;
+    const yMid = halfSize;
+    const yBot = halfSize + lineSpacing;
+
     const lineProps = {
         stroke: color,
         strokeWidth,
         strokeLinecap: "round" as const,
+        style: { transformOrigin: "50% 50%" },
+    };
+
+    const topVariants: Variants = {
+        untoggled: {
+            rotate: 0,
+            y1: yTop,
+            y2: yTop,
+        },
+        toggled: {
+            rotate: 45,
+            y1: yMid,
+            y2: yMid,
+        },
+    };
+
+    const midVariants: Variants = {
+        untoggled: {
+            opacity: 1,
+        },
+        toggled: {
+            opacity: 0,
+        },
+    };
+
+    const botVariants: Variants = {
+        untoggled: {
+            rotate: 0,
+            y1: yBot,
+            y2: yBot,
+        },
+        toggled: {
+            rotate: -45,
+            y1: yMid,
+            y2: yMid,
+        },
     };
 
     return (
@@ -30,47 +76,30 @@ export default function MenuButtonIcon({
             viewBox={`0 0 ${size} ${size}`}
             className={`cursor-pointer ${className}`}
             aria-hidden="true"
+            animate={toggled ? "toggled" : "untoggled"}
         >
             <motion.line
                 {...lineProps}
-                x1={spacing}
-                x2={size - spacing}
-                y1={half - size * 0.18}
-                y2={half - size * 0.18}
-                animate={{
-                    rotate: toggled ? 45 : 0,
-                    translateY: toggled ? size * 0.18 : 0,
-                    scaleX: toggled ? 1 : 1.2,
-                }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                style={{ originX: 0.5, originY: 0.5 }}
+                x1={xStart}
+                x2={xEnd}
+                variants={topVariants}
+                transition={SPRING}
             />
             <motion.line
                 {...lineProps}
-                x1={spacing}
-                x2={size - spacing}
-                y1={half}
-                y2={half}
-                animate={{
-                    opacity: toggled ? 0 : 1,
-                    scaleX: toggled ? 0.8 : 1.2,
-                }}
-                transition={{ duration: 0.2 }}
-                style={{ originX: 0.5 }}
+                x1={xStart}
+                y1={yMid}
+                x2={xEnd}
+                y2={yMid}
+                variants={midVariants}
+                transition={{ duration: 0.1 }}
             />
             <motion.line
                 {...lineProps}
-                x1={spacing}
-                x2={size - spacing}
-                y1={half + size * 0.18}
-                y2={half + size * 0.18}
-                animate={{
-                    rotate: toggled ? -45 : 0,
-                    translateY: toggled ? -size * 0.18 : 0,
-                    scaleX: toggled ? 1 : 1.2,
-                }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                style={{ originX: 0.5, originY: 0.5 }}
+                x1={xStart}
+                x2={xEnd}
+                variants={botVariants}
+                transition={SPRING}
             />
         </motion.svg>
     );
