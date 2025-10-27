@@ -1,14 +1,14 @@
 import { motion } from "motion/react";
 
 type DimmedProps = {
-    zIndex?: number;
+    // zIndex?: number;
     on?: boolean;
     opacity?: number;
     onClick?: () => void;
 };
 
 export default function Dimmed({
-    zIndex = 998,
+    // zIndex = 998,
     on = false,
     opacity = 0.5,
     onClick,
@@ -37,7 +37,7 @@ export default function Dimmed({
 
     return (
         <motion.div
-            className={`fixed w-screen bg-black z-${zIndex}`}
+            className="fixed w-screen bg-black z-998"
             variants={backdropVariants}
             animate={on ? "on" : "off"}
             initial="off"
