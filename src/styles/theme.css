@@ -32,7 +32,7 @@ http://scripts.sil.org/OFL
 
 @layer utilities {
     .font-title01 {
-        @apply font-pretendard-variable text-2xl font-semibold leading-8 tracking-tight;
+        @apply font-pretendard-variable text-2xl font-bold leading-8 tracking-tight;
     }
 
     .font-title02 {
