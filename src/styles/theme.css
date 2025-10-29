@@ -64,11 +64,11 @@ http://scripts.sil.org/OFL
     }
 
     .font-body05 {
-        @apply font-pretendard-variable text-sm font-medium leading-5 tracking-tight;
+        @apply font-pretendard-variable text-sm font-semibold leading-5 tracking-tight;
     }
 
     .font-body06 {
-        @apply font-pretendard-variable text-sm font-normal leading-5 tracking-tight;
+        @apply font-pretendard-variable text-sm font-medium leading-5 tracking-tight;
     }
 
     .font-caption01 {
