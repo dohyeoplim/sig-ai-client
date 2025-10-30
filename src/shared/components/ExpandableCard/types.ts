@@ -1,7 +1,7 @@
-export type CardProps = {
+export type ExpandableCardProps = {
     cardTitle: string | React.ReactNode;
     cardDescription?: string | React.ReactNode;
-    cardTheme?: CardTheme;
+    cardTheme?: ExpandableCardTheme;
     includeIndicator?: boolean;
     isExpandable?: boolean;
     defaultExpanded?: boolean;
@@ -11,4 +11,4 @@ export type CardProps = {
     children?: React.ReactNode;
 };
 
-export type CardTheme = "plain" | "green" | "orange" | "red" | "grey";
+export type ExpandableCardTheme = "plain" | "green" | "orange" | "red" | "grey";

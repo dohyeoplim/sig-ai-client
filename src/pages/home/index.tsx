@@ -1,32 +1,13 @@
-import Card from "@/shared/components/Card";
-import { AreaChart, LineChart } from "@/shared/components/Charts";
 import { useState } from "react";
+import ExpandableCard from "@/shared/components/ExpandableCard";
+import { AreaChart } from "@/shared/components/Charts";
 
 export default function HomePage() {
     const [animate, setAnimate] = useState(0);
 
     return (
         <div className="flex flex-col gap-6">
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription={
-                    <span className="font-caption02">
-                        지난달보다{" "}
-                        <span className="text-key-primary">
-                            재방문 고객 비율
-                        </span>
-                        이 증가하고 있습니다.
-                    </span>
-                }
-                cardTheme="green"
-                includeIndicator
-                isExpandable
-                defaultExpanded={false}
-            >
-                <LineChart redrawKey={animate} />
-            </Card>
-
-            <Card
+            <ExpandableCard
                 cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
                 cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
                 isExpandable
@@ -36,15 +17,9 @@ export default function HomePage() {
                 }}
             >
                 <AreaChart redrawKey={animate} />
-            </Card>
+            </ExpandableCard>
 
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
-                cardTheme="orange"
-            />
-
-            <Card
+            {/* <Card
                 cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
                 cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
                 cardTheme="red"
@@ -54,7 +29,7 @@ export default function HomePage() {
                 cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
                 cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
                 cardTheme="grey"
-            />
+            /> */}
         </div>
     );
 }
