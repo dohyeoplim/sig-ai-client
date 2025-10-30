@@ -28,7 +28,7 @@ export default function RainbowInlineChart({
             animate={{ opacity: 1 }}
         >
             <motion.div
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-2.5 rounded-full bg-white border-[0.5px] border-grey-900"
+                className="absolute top-1/2 -translate-y-1/2 size-2.5 rounded-full bg-white border-[0.5px] border-grey-900"
                 initial={{ left: "0%" }}
                 animate={{ left: `${pct}%` }}
                 transition={{ ...SMOOOTH, delay: 0.5 }}
