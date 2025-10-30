@@ -17,7 +17,7 @@ export function AnimatedValue({
                     className="text-grey-900 font-body01"
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
+                    transition={{ duration: 0.2, delay: 0.05 }}
                 >
                     {suffix}
                 </motion.span>

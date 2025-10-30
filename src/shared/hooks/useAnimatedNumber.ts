@@ -41,10 +41,16 @@ export function useAnimatedNumber(rawValue: string | number) {
 
     useEffect(() => {
         if (numericPart !== null) {
+            const duration = Math.min(
+                0.3 + Math.log10(Math.max(numericPart, 1)) * 0.05,
+                0.8
+            );
+
             const controls = animate(motionValue, numericPart, {
                 type: "spring",
                 stiffness: 80,
                 damping: 20,
+                duration,
                 onComplete: () => setShowSuffix(true),
             });
             return () => controls.stop();

@@ -26,7 +26,7 @@ export default function HomePage() {
                     label="전월 대비 매출"
                 />
 
-                <SummaryCard value="2.7%" label="상권 고정 비용 상승률" />
+                <SummaryCard value="4.7%" label="상권 고정 비용 상승률" />
             </div>
         </div>
     );
