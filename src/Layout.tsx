@@ -5,7 +5,7 @@ export default function Layout() {
     return (
         <>
             <Header />
-            <div className="max-w-2xl mx-auto px-4 pt-20 h-svh">
+            <div className="max-w-xl mx-auto px-4 pt-20 h-svh">
                 <main className="overflow-x-hidden">
                     <Outlet />
                 </main>
