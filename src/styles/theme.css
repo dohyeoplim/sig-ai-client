@@ -115,3 +115,9 @@ http://scripts.sil.org/OFL
     --color-key-100: rgba(232, 238, 232, 1);
     --color-key-50: rgba(243, 247, 243, 1);
 }
+
+@layer utilities {
+    .card-designed {
+        @apply bg-light-surface border-[0.5px] border-grey-100 rounded-[20px];
+    }
+}
