@@ -1,60 +1,33 @@
-import Card from "@/shared/components/Card";
-import { AreaChart, LineChart } from "@/shared/components/Charts";
-import { useState } from "react";
+import SummaryCard from "@/shared/components/SummaryCard";
+import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
+import BannerWithIcon from "@/shared/components/BannerWithIcon";
 
 export default function HomePage() {
-    const [animate, setAnimate] = useState(0);
-
     return (
-        <div className="flex flex-col gap-6">
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription={
-                    <span className="font-caption02">
-                        지난달보다{" "}
-                        <span className="text-key-primary">
-                            재방문 고객 비율
-                        </span>
-                        이 증가하고 있습니다.
-                    </span>
-                }
-                cardTheme="green"
-                includeIndicator
-                isExpandable
-                defaultExpanded={false}
-            >
-                <LineChart redrawKey={animate} />
-            </Card>
-
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
-                isExpandable
-                defaultExpanded
-                onExpandedChange={() => {
-                    setAnimate((k) => k + 1);
-                }}
-            >
-                <AreaChart redrawKey={animate} />
-            </Card>
-
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
-                cardTheme="orange"
+        <div className="w-full grid grid-cols-1 gap-2">
+            <BannerWithIcon
+                title="핵심 고객 변화"
+                description="30대 고객 방문 비중이 하락하고 있습니다!"
+                label="위험 신호"
+                buttonLabel="AI 추천 솔루션"
             />
 
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
-                cardTheme="red"
+            <SummaryCard
+                value="안전"
+                label="위험 수준 분석"
+                visual={<RainbowInlineChart value={0.2} />}
             />
 
-            <Card
-                cardTitle="김경보 님, 오늘도 잘하고 계시네요!"
-                cardDescription="지난달보다 재방문 고객 비율이 증가하고 있습니다."
-                cardTheme="grey"
-            />
+            <div className="w-full grid grid-cols-2 gap-2">
+                <SummaryCard
+                    value="1203만원"
+                    delta="1.3%"
+                    trend="down"
+                    label="전월 대비 매출"
+                />
+
+                <SummaryCard value="4.7%" label="상권 고정 비용 상승률" />
+            </div>
         </div>
     );
 }

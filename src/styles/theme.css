@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-    @apply font-pretendard-variable;
+    @apply font-pretendard-variable bg-background;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -32,59 +32,76 @@ http://scripts.sil.org/OFL
 
 @layer utilities {
     .font-title01 {
-        @apply font-pretendard-variable text-2xl font-semibold leading-8 tracking-tight;
+        @apply font-pretendard-variable font-bold leading-8 tracking-tight;
+        font-size: clamp(1.5rem, 1.2vw + 1.2rem, 1.875rem);
     }
 
     .font-title02 {
-        @apply font-pretendard-variable text-2xl font-medium leading-8 tracking-tight;
+        @apply font-pretendard-variable font-medium leading-8 tracking-tight;
+        font-size: clamp(1.5rem, 1.1vw + 1.1rem, 1.75rem);
     }
 
     .font-head01 {
-        @apply font-pretendard-variable text-xl font-semibold leading-7 tracking-tight;
+        @apply font-pretendard-variable font-semibold leading-7 tracking-tight;
+        font-size: clamp(1.25rem, 0.8vw + 1rem, 1.375rem);
     }
 
     .font-head02 {
-        @apply font-pretendard-variable text-xl font-medium leading-7 tracking-tight;
+        @apply font-pretendard-variable font-medium leading-7 tracking-tight;
+        font-size: clamp(1.25rem, 0.8vw + 1rem, 1.375rem);
     }
 
     .font-body01 {
-        @apply font-pretendard-variable text-lg font-semibold leading-6 tracking-tight;
+        @apply font-pretendard-variable font-semibold leading-6 tracking-tight;
+        font-size: clamp(1.125rem, 0.6vw + 0.9rem, 1.25rem);
     }
 
     .font-body02 {
-        @apply font-pretendard-variable text-lg font-medium leading-6 tracking-tight;
+        @apply font-pretendard-variable font-medium leading-6 tracking-tight;
+        font-size: clamp(1.125rem, 0.6vw + 0.9rem, 1.1875rem);
     }
 
     .font-body03 {
-        @apply font-pretendard-variable text-base font-semibold leading-6 tracking-tight;
+        @apply font-pretendard-variable font-semibold leading-6 tracking-tight;
+        font-size: clamp(1rem, 0.5vw + 0.85rem, 1.125rem);
     }
 
     .font-body04 {
-        @apply font-pretendard-variable text-base font-medium leading-6 tracking-tight;
+        @apply font-pretendard-variable font-medium leading-6 tracking-tight;
+        font-size: clamp(1rem, 0.5vw + 0.85rem, 1.0625rem);
     }
 
     .font-body05 {
-        @apply font-pretendard-variable text-sm font-medium leading-5 tracking-tight;
+        @apply font-pretendard-variable font-semibold leading-5 tracking-tight;
+        font-size: clamp(0.875rem, 0.4vw + 0.7rem, 1rem);
     }
 
     .font-body06 {
-        @apply font-pretendard-variable text-sm font-normal leading-5 tracking-tight;
+        @apply font-pretendard-variable font-medium leading-5 tracking-tight;
+        font-size: clamp(0.875rem, 0.35vw + 0.7rem, 0.9375rem);
     }
 
     .font-caption01 {
-        @apply font-pretendard-variable text-xs font-semibold leading-3 tracking-normal;
+        @apply font-pretendard-variable font-semibold leading-3 tracking-normal;
+        font-size: clamp(0.75rem, 0.25vw + 0.68rem, 0.8125rem);
     }
 
     .font-caption02 {
-        @apply font-pretendard-variable text-xs font-medium leading-3 tracking-normal;
+        @apply font-pretendard-variable font-medium leading-3 tracking-normal;
+        font-size: clamp(0.75rem, 0.2vw + 0.68rem, 0.8rem);
     }
 
     .font-caption03 {
-        @apply font-pretendard-variable text-xs font-normal leading-3 tracking-normal;
+        @apply font-pretendard-variable font-normal leading-3 tracking-normal;
+        font-size: clamp(0.75rem, 0.2vw + 0.68rem, 0.8rem);
     }
 }
 
 @theme {
+    --color-background: #f6f6f6;
+    --color-light-surface: #f9f9f9;
+    --color-danger-red: #e5484d;
+    --color-safe-blue: #4174ea;
     --color-white: rgba(255, 255, 255, 1);
     --color-grey-900: rgba(36, 37, 42, 1);
     --color-grey-800: rgba(63, 65, 72, 1);
@@ -97,4 +114,10 @@ http://scripts.sil.org/OFL
     --color-key-300: rgba(140, 169, 140, 1);
     --color-key-100: rgba(232, 238, 232, 1);
     --color-key-50: rgba(243, 247, 243, 1);
+}
+
+@layer utilities {
+    .card-designed {
+        @apply bg-light-surface border-[0.5px] border-grey-100 rounded-[20px];
+    }
 }

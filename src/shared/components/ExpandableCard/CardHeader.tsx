@@ -1,10 +1,10 @@
 import { ChevronRight } from "lucide-react";
-import type { CardTheme } from "./types";
+import type { ExpandableCardTheme } from "./types";
 
 type CardHeaderProps = {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
-    cardTheme?: CardTheme;
+    cardTheme?: ExpandableCardTheme;
     includeIndicator?: boolean;
     isExpandable?: boolean;
     expanded?: boolean;
