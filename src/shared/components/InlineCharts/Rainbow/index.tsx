@@ -1,3 +1,4 @@
+import { SMOOOTH } from "@/styles/transitions";
 import type { InlineChartProps } from "../types";
 import { motion } from "motion/react";
 
@@ -16,7 +17,7 @@ export default function RainbowInlineChart({
 
     return (
         <motion.div
-            className="relative w-full h-2 rounded-full"
+            className="relative w-full h-2.5 rounded-full"
             role="img"
             title={`Value: ${value} (range ${l}–${r})`}
             style={{
@@ -27,10 +28,10 @@ export default function RainbowInlineChart({
             animate={{ opacity: 1 }}
         >
             <motion.div
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-white border-[0.5px] border-grey-900"
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-2.5 rounded-full bg-white border-[0.5px] border-grey-900"
                 initial={{ left: "0%" }}
                 animate={{ left: `${pct}%` }}
-                transition={{ delay: 0.5 }}
+                transition={{ ...SMOOOTH, delay: 0.5 }}
                 aria-hidden
             />
         </motion.div>
