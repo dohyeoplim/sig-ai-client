@@ -1,13 +1,15 @@
 import SummaryCard from "@/shared/components/SummaryCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
-import ExpandableCard from "@/shared/components/ExpandableCard";
+import BannerWithIcon from "@/shared/components/BannerWithIcon";
 
 export default function HomePage() {
     return (
         <div className="w-full grid grid-cols-1 gap-2">
-            <ExpandableCard
-                cardTitle="30대 고객 비중 하락"
-                cardDescription="핵심 고객군이 바뀌는 중입니다!"
+            <BannerWithIcon
+                title="핵심 고객 변화"
+                description="30대 고객 방문 비중이 하락하고 있습니다!"
+                label="위험 신호"
+                buttonLabel="AI 추천 솔루션"
             />
 
             <SummaryCard
