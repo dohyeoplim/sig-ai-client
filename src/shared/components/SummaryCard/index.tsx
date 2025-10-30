@@ -1,22 +1,43 @@
-import { ChevronDown } from "lucide-react";
+import type { SummaryCardProps } from "./types";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
-export default function SummaryCard() {
+export default function SummaryCard({
+    value,
+    delta,
+    trend,
+    label,
+    visual,
+    className,
+}: SummaryCardProps) {
     return (
-        <div className="w-full flex flex-col justify-between h-20 p-4 rounded-[20px] bg-light-surface">
+        <div
+            className={`w-full flex flex-col justify-between p-4 rounded-[20px] bg-light-surface ${
+                visual ? "h-26" : "h-20"
+            } ${className}`}
+        >
             <div className="w-full flex items-center justify-between">
-                <span className="font-body01 text-grey-900">28%</span>
-
-                <div className="flex items-center gap-0.5 text-red-400">
-                    <ChevronDown size={12} strokeWidth={2} />
-                    <span className="font-caption02">1.3%</span>
-                </div>
+                <span className="font-body01 text-grey-900">{value}</span>
+                {delta && trend && (
+                    <div
+                        className={`flex items-center gap-0.5 ${
+                            trend == "down"
+                                ? "text-safe-blue"
+                                : "text-danger-red"
+                        }`}
+                    >
+                        {trend == "down" ? (
+                            <ChevronDown size={12} strokeWidth={2} />
+                        ) : (
+                            <ChevronUp size={12} strokeWidth={2} />
+                        )}
+                        <span className="font-caption02">{delta}</span>
+                    </div>
+                )}
             </div>
 
-            <div className="flex flex-col gap-2">
-                {/* <div>Graph</div> */}
-                <span className="font-caption02 text-grey-700">
-                    작년 대비 매출
-                </span>
+            <div className="flex flex-col gap-3">
+                {visual}
+                <span className="font-caption02 text-grey-700">{label}</span>
             </div>
         </div>
     );
