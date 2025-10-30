@@ -27,7 +27,7 @@ export default function ExpandableCard({
         <motion.div
             layout
             transition={SMOOOTH}
-            className={`rounded-xl ${expandableCardThemes[cardTheme]} ${
+            className={`rounded-[20px] ${expandableCardThemes[cardTheme]} ${
                 className ?? ""
             }`}
         >

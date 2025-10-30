@@ -1,9 +1,15 @@
 import SummaryCard from "@/shared/components/SummaryCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
+import ExpandableCard from "@/shared/components/ExpandableCard";
 
 export default function HomePage() {
     return (
         <div className="w-full grid grid-cols-1 gap-2">
+            <ExpandableCard
+                cardTitle="30대 고객 비중 하락"
+                cardDescription="핵심 고객군이 바뀌는 중입니다!"
+            />
+
             <SummaryCard
                 value="안전"
                 label="위험 수준 분석"

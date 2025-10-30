@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
-import {
-    motion,
-    useMotionValue,
-    useSpring,
-    useTransform,
-    animate,
-} from "motion/react";
+import { motion } from "motion/react";
 import type { SummaryCardProps } from "./types";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useAnimatedNumber } from "@/shared/hooks/useAnimatedNumber";
+import { AnimatedValue } from "./AnimatedValue";
 
 export default function SummaryCard({
     value,
@@ -17,56 +12,8 @@ export default function SummaryCard({
     visual,
     className,
 }: SummaryCardProps) {
-    const [numericPart, setNumericPart] = useState<number | null>(null);
-    const [suffix, setSuffix] = useState("");
-    const [showSuffix, setShowSuffix] = useState(false);
-    const [hasDecimal, setHasDecimal] = useState(false);
-
-    useEffect(() => {
-        const match = String(value).match(/^([\d,\.]+)(.*)$/);
-        if (match) {
-            const num = parseFloat(match[1].replace(/,/g, ""));
-            if (!isNaN(num)) {
-                setNumericPart(num);
-                setHasDecimal(match[1].includes("."));
-                setSuffix(match[2]);
-            } else {
-                setNumericPart(null);
-                setHasDecimal(false);
-            }
-        } else {
-            setNumericPart(null);
-            setHasDecimal(false);
-        }
-        setShowSuffix(false);
-    }, [value]);
-
-    const motionValue = useMotionValue(0);
-    const spring = useSpring(motionValue, { stiffness: 80, damping: 20 });
-    const display = useTransform(spring, (latest) =>
-        hasDecimal
-            ? latest.toLocaleString(undefined, {
-                  minimumFractionDigits: 1,
-                  maximumFractionDigits: 1,
-              })
-            : latest.toLocaleString(undefined, {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
-              })
-    );
-
-    useEffect(() => {
-        if (numericPart !== null) {
-            const controls = animate(motionValue, numericPart, {
-                type: "spring",
-                stiffness: 80,
-                damping: 20,
-                onComplete: () => setShowSuffix(true),
-            });
-            return () => controls.stop();
-        }
-    }, [numericPart, motionValue]);
-
+    const { display, numericPart, suffix, showSuffix } =
+        useAnimatedNumber(value);
     const showDeltaNow = delta && trend && (numericPart === null || showSuffix);
 
     return (
@@ -77,19 +24,11 @@ export default function SummaryCard({
         >
             <div className="w-full flex items-center justify-between">
                 {numericPart !== null ? (
-                    <span className="font-body01 text-grey-900 flex items-center">
-                        <motion.span>{display}</motion.span>
-                        {showSuffix && (
-                            <motion.span
-                                className="text-grey-900 font-body01"
-                                initial={{ opacity: 0, y: 4 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: 0.1 }}
-                            >
-                                {suffix}
-                            </motion.span>
-                        )}
-                    </span>
+                    <AnimatedValue
+                        display={display}
+                        suffix={suffix}
+                        showSuffix={showSuffix}
+                    />
                 ) : (
                     <span className="font-body01 text-grey-900">{value}</span>
                 )}
@@ -97,7 +36,7 @@ export default function SummaryCard({
                 {delta && trend && showDeltaNow && (
                     <motion.div
                         className={`flex items-center gap-0.5 ${
-                            trend == "down"
+                            trend === "down"
                                 ? "text-safe-blue"
                                 : "text-danger-red"
                         }`}
@@ -105,7 +44,7 @@ export default function SummaryCard({
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
                     >
-                        {trend == "down" ? (
+                        {trend === "down" ? (
                             <ChevronDown size={12} strokeWidth={2} />
                         ) : (
                             <ChevronUp size={12} strokeWidth={2} />
