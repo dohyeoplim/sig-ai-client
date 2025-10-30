@@ -12,7 +12,7 @@ export default function HomePage() {
 
             <div className="w-full grid grid-cols-2 gap-2">
                 <SummaryCard
-                    value="1,203만원"
+                    value="1203만원"
                     delta="1.3%"
                     trend="down"
                     label="전월 대비 매출"

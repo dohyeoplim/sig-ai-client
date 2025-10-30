@@ -20,6 +20,7 @@ export default function SummaryCard({
     const [numericPart, setNumericPart] = useState<number | null>(null);
     const [suffix, setSuffix] = useState("");
     const [showSuffix, setShowSuffix] = useState(false);
+    const [hasDecimal, setHasDecimal] = useState(false);
 
     useEffect(() => {
         const match = String(value).match(/^([\d,\.]+)(.*)$/);
@@ -27,12 +28,15 @@ export default function SummaryCard({
             const num = parseFloat(match[1].replace(/,/g, ""));
             if (!isNaN(num)) {
                 setNumericPart(num);
+                setHasDecimal(match[1].includes("."));
                 setSuffix(match[2]);
             } else {
                 setNumericPart(null);
+                setHasDecimal(false);
             }
         } else {
             setNumericPart(null);
+            setHasDecimal(false);
         }
         setShowSuffix(false);
     }, [value]);
@@ -40,7 +44,15 @@ export default function SummaryCard({
     const motionValue = useMotionValue(0);
     const spring = useSpring(motionValue, { stiffness: 80, damping: 20 });
     const display = useTransform(spring, (latest) =>
-        latest.toLocaleString(undefined, { maximumFractionDigits: 0 })
+        hasDecimal
+            ? latest.toLocaleString(undefined, {
+                  minimumFractionDigits: 1,
+                  maximumFractionDigits: 1,
+              })
+            : latest.toLocaleString(undefined, {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+              })
     );
 
     useEffect(() => {
