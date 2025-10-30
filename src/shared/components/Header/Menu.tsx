@@ -7,7 +7,7 @@ type MenuProps = {
 export default function Menu({ close }: MenuProps) {
     return (
         <div className="flex flex-col gap-4 pb-2">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5 select-none">
                 <p className="font-caption02 text-key-primary">
                     소상공인 위기 예측 및 금융 솔루션 연계를 위한
                 </p>
