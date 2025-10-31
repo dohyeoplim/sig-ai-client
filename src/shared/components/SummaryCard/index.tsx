@@ -10,10 +10,13 @@ export default function SummaryCard({
     trend,
     label,
     visual,
+    animateDelay,
     className,
 }: SummaryCardProps) {
-    const { display, numericPart, suffix, showSuffix } =
-        useAnimatedNumber(value);
+    const { display, numericPart, suffix, showSuffix } = useAnimatedNumber(
+        value,
+        animateDelay
+    );
     const showDeltaNow = delta && trend && (numericPart === null || showSuffix);
 
     return (

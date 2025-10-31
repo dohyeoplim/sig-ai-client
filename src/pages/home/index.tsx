@@ -24,9 +24,14 @@ export default function HomePage() {
                     delta="1.3%"
                     trend="down"
                     label="전월 대비 매출"
+                    animateDelay={0.5}
                 />
 
-                <SummaryCard value="4.7%" label="상권 고정 비용 상승률" />
+                <SummaryCard
+                    value="4.7%"
+                    label="상권 고정 비용 상승률"
+                    animateDelay={0.5}
+                />
             </div>
         </div>
     );

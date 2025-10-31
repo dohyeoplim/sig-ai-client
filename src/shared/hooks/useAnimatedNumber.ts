@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMotionValue, useSpring, useTransform, animate } from "motion/react";
 
-export function useAnimatedNumber(rawValue: string | number) {
+export function useAnimatedNumber(rawValue: string | number, delay?: number) {
     const [numericPart, setNumericPart] = useState<number | null>(null);
     const [suffix, setSuffix] = useState("");
     const [hasDecimal, setHasDecimal] = useState(false);
@@ -51,6 +51,7 @@ export function useAnimatedNumber(rawValue: string | number) {
                 stiffness: 80,
                 damping: 20,
                 duration,
+                delay,
                 onComplete: () => setShowSuffix(true),
             });
             return () => controls.stop();
