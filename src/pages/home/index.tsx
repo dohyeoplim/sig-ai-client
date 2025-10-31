@@ -4,6 +4,7 @@ import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
+import FloatingButton from "./components/FloatingButton";
 
 export default function HomePage() {
     const [showSheet, setShowSheet] = useState(true);
@@ -46,6 +47,8 @@ export default function HomePage() {
 
                 <button onClick={() => setShowSheet(true)}>Sheet</button>
             </div>
+
+            <FloatingButton />
 
             <ActionSheet
                 title="맛닭꼬끼오 공릉점"
