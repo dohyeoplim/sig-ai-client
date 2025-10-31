@@ -4,6 +4,7 @@ export type SummaryCardProps = {
     trend?: TrendDirection;
     label?: string;
     visual?: React.ReactNode;
+    animateDelay?: number;
     className?: string;
 };
 
