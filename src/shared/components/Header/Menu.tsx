@@ -1,6 +1,7 @@
 import { ChevronUp } from "lucide-react";
 import LoginForm from "./LoginForm";
 import { useSession } from "@/shared/lib/session";
+import { Link } from "react-router-dom";
 
 type MenuProps = {
     close: () => void;
@@ -32,15 +33,25 @@ export default function Menu({ close }: MenuProps) {
 
             {isAuthenticated ? (
                 <>
-                    <p
-                        className="font-body01 cursor-pointer"
-                        onClick={(e) => {
-                            e.preventDefault();
+                    <Link
+                        to="/"
+                        onClick={() => {
                             close();
                         }}
+                        className="font-body01 cursor-pointer"
                     >
                         홈
-                    </p>
+                    </Link>
+
+                    <Link
+                        to="/analysis"
+                        onClick={() => {
+                            close();
+                        }}
+                        className="font-body01 cursor-pointer"
+                    >
+                        내 가게
+                    </Link>
 
                     <p
                         className="font-body01 cursor-pointer"
