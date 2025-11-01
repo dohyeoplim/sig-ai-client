@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useHeaderMenu } from "./headerStore";
 import { useCollapsible } from "@/shared/hooks/useCollapsible";
 import { SMOOOTH } from "@/styles/transitions";
 import Logo from "./Logo";
@@ -7,7 +8,16 @@ import MenuButton from "./MenuButton";
 import Dimmed from "../Dimmed";
 
 export default function Header() {
-    const { expanded, toggle, close, contentMotion } = useCollapsible({});
+    const expanded = useHeaderMenu((s) => s.expanded);
+    const setExpanded = useHeaderMenu((s) => s.setExpanded);
+    const toggleStore = useHeaderMenu((s) => s.toggle);
+    const closeStore = useHeaderMenu((s) => s.close);
+
+    // const { expanded, toggle, close, contentMotion } = useCollapsible({});
+    const { contentMotion } = useCollapsible({
+        expandedProp: expanded,
+        onExpandedChange: setExpanded,
+    });
 
     return (
         <>
@@ -19,16 +29,19 @@ export default function Header() {
                 >
                     <div className="flex w-full h-16 items-center justify-between">
                         <Logo />
-                        <MenuButton expanded={expanded} onToggle={toggle} />
+                        <MenuButton
+                            expanded={expanded}
+                            onToggle={toggleStore}
+                        />
                     </div>
 
                     <motion.div {...contentMotion}>
-                        <Menu close={close} />
+                        <Menu />
                     </motion.div>
                 </motion.div>
             </div>
 
-            <Dimmed on={expanded} opacity={0.2} onClick={close} />
+            <Dimmed on={expanded} opacity={0.2} onClick={closeStore} />
         </>
     );
 }

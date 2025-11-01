@@ -1,7 +1,8 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
-import TextInput from "../FormComponents/TextInput";
+import { useSession } from "@/shared/lib/session";
 import PhoneNumberInput from "../FormComponents/PhoneNumberInput";
+import { formatPhoneNumber } from "@/shared/utils/phoneNumberFormatter";
 
 type LoginFormProps = {
     formID?: string;
@@ -9,26 +10,26 @@ type LoginFormProps = {
 };
 
 const LoginFormSchema = Yup.object().shape({
-    nickname: Yup.string().required("닉네임을 입력해주세요."),
-    phonenumber: Yup.string()
+    // name: Yup.string().required("닉네임을 입력해주세요."),
+    phoneNumber: Yup.string()
         .matches(/^[0-9]{10,11}$/, "올바른 전화번호를 입력해주세요.")
         .required("전화번호를 입력해주세요."),
 });
 
-export default function LoginForm({
-    afterSubmit,
-    formID = "loginForm",
-}: LoginFormProps) {
+export default function LoginForm({ formID = "loginForm" }: LoginFormProps) {
+    const { signIn } = useSession();
+
     return (
         <Formik
-            initialValues={{ nickname: "", phonenumber: "" }}
+            initialValues={{ phoneNumber: "" }}
             validationSchema={LoginFormSchema}
-            onSubmit={(values, actions) => {
-                setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
-                    afterSubmit?.();
-                }, 400);
+            onSubmit={async (values, actions) => {
+                try {
+                    await signIn(formatPhoneNumber(values.phoneNumber));
+                } catch (err: any) {
+                    alert(err);
+                }
+                actions.setSubmitting(false);
             }}
         >
             {({ handleSubmit, isValid, dirty }) => (
@@ -37,16 +38,16 @@ export default function LoginForm({
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-2 px-px"
                 >
-                    <TextInput
-                        id="nickname"
-                        name="nickname"
+                    {/* <TextInput
+                        id="name"
+                        name="name"
                         placeholder="닉네임"
                         type="text"
-                    />
+                    /> */}
 
                     <PhoneNumberInput
-                        id="phonenumber"
-                        name="phonenumber"
+                        id="phoneNumber"
+                        name="phoneNumber"
                         placeholder="전화번호"
                         type="tel"
                     />
