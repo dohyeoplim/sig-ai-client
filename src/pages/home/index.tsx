@@ -17,7 +17,7 @@ export default function HomePage() {
 
             <FloatingButton
                 onClick={() => setShowSheet(true)}
-                className="absolute bottom-4"
+                className="absolute justify-end bottom-4"
             />
 
             <ActionSheet
