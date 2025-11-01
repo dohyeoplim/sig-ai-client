@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")!).render(
         <QueryClientProvider client={qc}>
             <LoadSession />
             <ModalProvider>
-                <BrowserRouter basename="/sig-ai-client/">
+                <BrowserRouter basename="/">
                     <Routes>
                         <Route element={<Layout />}>
                             <Route index element={<HomePage />} />
