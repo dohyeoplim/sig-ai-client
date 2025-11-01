@@ -9,18 +9,16 @@ export default function Hero() {
 
     return (
         <div className="relative">
-            <div className="relative z-10 flex flex-col gap-2 pt-8">
-                <h1 className="font-title01 text-grey-900">
-                    AI로 읽는
-                    <br />
-                    당신의 비즈니스.
+            <div className="relative z-10 flex flex-col gap-3 pt-5.5">
+                <h1 className="font-title01 text-grey-900 flex flex-col gap-0.5">
+                    <p>AI로 읽는</p>
+                    <p>당신의 비즈니스.</p>
                 </h1>
 
-                <div className="flex flex-col gap-1">
-                    <h2 className="font-body04 text-grey-800">
-                        SIG:AI로,
-                        <br />
-                        보이지 않던 위험을 발견하세요.
+                <div className="flex flex-col gap-2">
+                    <h2 className="font-body04 text-grey-800 flex flex-col gap-px">
+                        <p>SIG:AI로,</p>
+                        <p>보이지 않던 위험을 발견하세요.</p>
                     </h2>
 
                     {isAuthenticated ? (
