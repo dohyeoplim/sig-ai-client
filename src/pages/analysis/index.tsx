@@ -89,17 +89,17 @@ export default function AnalysisPage() {
                 <div className="w-full grid grid-cols-2 gap-2">
                     <SummaryCard
                         value="1203만원"
-                        delta="1.3%"
-                        trend="down"
+                        delta="6.3%"
+                        trend="up"
                         label="전월 대비 매출"
                         animateDelay={0.5}
                     />
 
                     <SummaryCard
-                        value="1203만원"
-                        delta="1.3%"
+                        value="24.9%"
+                        delta="2.3%p"
                         trend="down"
-                        label="전월 대비 매출"
+                        label="직장인 인구 비율"
                         animateDelay={0.5}
                     />
                 </div>
