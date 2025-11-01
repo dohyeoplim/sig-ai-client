@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSession } from "@/shared/lib/session";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
@@ -24,6 +24,8 @@ export default function AnalysisPage() {
     if (!isAuthenticated || !user) {
         return <Navigate to="/" replace state={{ from: location }} />;
     }
+
+    const navigate = useNavigate();
 
     const [showRevenueSheet, setShowRevenueSheet] = useState(false);
     const [showStoreSheet, setStoreShowSheet] = useState(false);
@@ -67,7 +69,12 @@ export default function AnalysisPage() {
                         >
                             <Wallet size={18} />
                         </button>
-                        <button className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all">
+                        <button
+                            className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all"
+                            onClick={() => {
+                                navigate(0);
+                            }}
+                        >
                             <RefreshCcw size={16} />
                         </button>
                     </div>
@@ -78,6 +85,24 @@ export default function AnalysisPage() {
                     label="위험 수준 분석"
                     visual={<RainbowInlineChart value={0.2} />}
                 />
+
+                <div className="w-full grid grid-cols-2 gap-2">
+                    <SummaryCard
+                        value="1203만원"
+                        delta="1.3%"
+                        trend="down"
+                        label="전월 대비 매출"
+                        animateDelay={0.5}
+                    />
+
+                    <SummaryCard
+                        value="1203만원"
+                        delta="1.3%"
+                        trend="down"
+                        label="전월 대비 매출"
+                        animateDelay={0.5}
+                    />
+                </div>
 
                 {!revenue.error && (
                     <ExpandableCard
@@ -105,23 +130,6 @@ export default function AnalysisPage() {
                     </ExpandableCard>
                 )}
 
-                <div className="w-full grid grid-cols-2 gap-2">
-                    <SummaryCard
-                        value="1203만원"
-                        delta="1.3%"
-                        trend="down"
-                        label="전월 대비 매출"
-                        animateDelay={0.5}
-                    />
-
-                    <SummaryCard
-                        value="1203만원"
-                        delta="1.3%"
-                        trend="down"
-                        label="전월 대비 매출"
-                        animateDelay={0.5}
-                    />
-                </div>
                 <div className="w-full grid place-items-center">
                     <button
                         className="p-3 font-caption02 text-grey-800 cursor-pointer"
