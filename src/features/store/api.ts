@@ -11,18 +11,18 @@ export function useStore(storeId: number) {
     });
 }
 
-export function useCreateStore() {
+export function useCreateStore(phoneNumber: string) {
     const qc = useQueryClient();
     return useMutation({
-        mutationFn: (body: StoreReq) => api.create(body),
+        mutationFn: (body: StoreReq) => api.create(phoneNumber, body),
         onSuccess: () => qc.invalidateQueries({ queryKey: storeKeys.all }),
     });
 }
 
-export function useUpdateStore(storeId: number) {
+export function useUpdateStore(phonenumber: string, storeId: number) {
     const qc = useQueryClient();
     return useMutation({
-        mutationFn: (body: StoreReq) => api.update(storeId, body),
+        mutationFn: (body: StoreReq) => api.update(phonenumber, storeId, body),
         onSuccess: () => {
             qc.invalidateQueries({ queryKey: storeKeys.byId(storeId) });
             qc.invalidateQueries({ queryKey: storeKeys.all });
@@ -30,10 +30,10 @@ export function useUpdateStore(storeId: number) {
     });
 }
 
-export function useDeleteStore(storeId: number) {
+export function useDeleteStore(phoneNumber: string, storeId: number) {
     const qc = useQueryClient();
     return useMutation({
-        mutationFn: () => api.delete(storeId),
+        mutationFn: () => api.delete(phoneNumber, storeId),
         onSuccess: () => qc.invalidateQueries({ queryKey: storeKeys.all }),
     });
 }

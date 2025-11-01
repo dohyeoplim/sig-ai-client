@@ -9,24 +9,28 @@ import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
 // import { useAnalyzeMarket } from "@/features/analysis/api";
 import VanillaTextSelect from "@/shared/components/FormComponents/NonFormik/VanillaTextSelect";
 import { generateQuarterOptions } from "@/shared/utils/generateQuarterOptions";
-import { Plus, RefreshCcw } from "lucide-react";
+import { RefreshCcw, Wallet } from "lucide-react";
+import { useStoresByOwnerPhone } from "@/features/store/api";
+import RevenueForm from "./components/RevenueForm";
 // import ExpandableCard from "@/shared/components/ExpandableCard";
 // import { AreaChart } from "@/shared/components/Charts";
 // import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
 // import { useAnalysisData } from "@/api/queries/useAnalysisData";
 
 export default function AnalysisPage() {
-    const { isAuthenticated } = useSession();
+    const { isAuthenticated, user } = useSession();
     const location = useLocation();
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !user) {
         return <Navigate to="/" replace state={{ from: location }} />;
     }
 
-    const [showSheet, setShowSheet] = useState(false);
+    const [showRevenueSheet, setShowRevenueSheet] = useState(false);
+    const [showStoreSheet, setStoreShowSheet] = useState(false);
     // const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
 
     const onCloseSheet = () => {
-        setShowSheet(false);
+        setShowRevenueSheet(false);
+        setStoreShowSheet(false);
     };
 
     // const { isPending, error, data, isFetching } = useAnalysisData({
@@ -47,6 +51,8 @@ export default function AnalysisPage() {
     //     quarter,
     //     count: 8,
     // });
+
+    const store = useStoresByOwnerPhone(user.phoneNumber);
 
     return (
         <div className="relative">
@@ -71,9 +77,9 @@ export default function AnalysisPage() {
                     <div className="flex items-center gap-1">
                         <button
                             className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all"
-                            onClick={() => setShowSheet(true)}
+                            onClick={() => setShowRevenueSheet(true)}
                         >
-                            <Plus size={18} />
+                            <Wallet size={18} />
                         </button>
                         <button className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all">
                             <RefreshCcw size={16} />
@@ -112,6 +118,16 @@ export default function AnalysisPage() {
                         animateDelay={0.5}
                     />
                 </div>
+
+                <div className="w-full grid place-items-center">
+                    <button
+                        className="p-2 font-caption02 cursor-pointer"
+                        onClick={() => setStoreShowSheet(true)}
+                    >
+                        매장 정보 수정
+                    </button>
+                </div>
+
                 {/* {!error && (
                     <ExpandableCard
                         cardDescription={`상권 매출 그래프 ${
@@ -167,12 +183,28 @@ export default function AnalysisPage() {
             </div>
 
             <ActionSheet
-                title="맛닭꼬끼오 공릉점"
-                isOpen={showSheet}
+                title={store.data?.data?.[0]?.storeName ?? "가게 정보"}
+                isOpen={showStoreSheet}
                 onClose={onCloseSheet}
                 disableDrag
             >
-                <StoreInfoForm afterSubmit={onCloseSheet} />
+                <StoreInfoForm
+                    afterSubmit={onCloseSheet}
+                    phoneNumber={user.phoneNumber}
+                    store={store.data?.data?.[0]}
+                />
+            </ActionSheet>
+
+            <ActionSheet
+                title="매출 정보 입력"
+                isOpen={showRevenueSheet}
+                onClose={onCloseSheet}
+                disableDrag
+            >
+                <RevenueForm
+                    afterSubmit={onCloseSheet}
+                    storeId={store.data?.data?.[0]?.id}
+                />
             </ActionSheet>
         </div>
     );

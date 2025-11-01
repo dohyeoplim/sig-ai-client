@@ -2,13 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApiResponse } from '../models/ApiResponse';
-import type { MarketAnalysisReq } from '../models/MarketAnalysisReq';
-import type { MemberReq } from '../models/MemberReq';
-import type { StoreReq } from '../models/StoreReq';
-import type { StoreRevenueReq } from '../models/StoreRevenueReq';
-import type { CancelablePromise } from '../core/CancelablePromise';
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
+import type { ApiResponse } from "../models/ApiResponse";
+import type { MarketAnalysisReq } from "../models/MarketAnalysisReq";
+import type { MemberReq } from "../models/MemberReq";
+import type { StoreReq } from "../models/StoreReq";
+import type { StoreRevenueReq } from "../models/StoreRevenueReq";
+import type { CancelablePromise } from "../core/CancelablePromise";
+import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 export class ApiService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
     /**
@@ -18,14 +18,12 @@ export class ApiService {
      * @returns ApiResponse 조회 성공
      * @throws ApiError
      */
-    public get(
-        storeId: number,
-    ): CancelablePromise<ApiResponse> {
+    public get(storeId: number): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/v1/store/{storeId}',
+            method: "GET",
+            url: "/api/v1/store/{storeId}",
             path: {
-                'storeId': storeId,
+                storeId: storeId,
             },
             errors: {
                 404: `가게를 찾을 수 없음`,
@@ -44,19 +42,19 @@ export class ApiService {
     public update(
         phoneNumber: string,
         storeId: number,
-        requestBody: StoreReq,
+        requestBody: StoreReq
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'PUT',
-            url: '/api/v1/store/{storeId}',
+            method: "PUT",
+            url: "/api/v1/store/{storeId}",
             path: {
-                'storeId': storeId,
+                storeId: storeId,
             },
             query: {
-                'phoneNumber': phoneNumber,
+                phoneNumber: phoneNumber,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 404: `가게를 찾을 수 없음`,
             },
@@ -72,16 +70,16 @@ export class ApiService {
      */
     public delete(
         phoneNumber: string,
-        storeId: number,
+        storeId: number
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/api/v1/store/{storeId}',
+            method: "DELETE",
+            url: "/api/v1/store/{storeId}",
             path: {
-                'storeId': storeId,
+                storeId: storeId,
             },
             query: {
-                'phoneNumber': phoneNumber,
+                phoneNumber: phoneNumber,
             },
         });
     }
@@ -92,14 +90,12 @@ export class ApiService {
      * @returns ApiResponse 조회 성공
      * @throws ApiError
      */
-    public get1(
-        memberId: number,
-    ): CancelablePromise<ApiResponse> {
+    public get1(memberId: number): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/v1/member/{memberId}',
+            method: "GET",
+            url: "/api/v1/member/{memberId}",
             path: {
-                'memberId': memberId,
+                memberId: memberId,
             },
             errors: {
                 404: `사장님을 찾을 수 없음`,
@@ -116,16 +112,16 @@ export class ApiService {
      */
     public update1(
         memberId: number,
-        requestBody: MemberReq,
+        requestBody: MemberReq
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'PUT',
-            url: '/api/v1/member/{memberId}',
+            method: "PUT",
+            url: "/api/v1/member/{memberId}",
             path: {
-                'memberId': memberId,
+                memberId: memberId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 404: `사장님을 찾을 수 없음`,
             },
@@ -138,14 +134,12 @@ export class ApiService {
      * @returns ApiResponse 삭제 성공
      * @throws ApiError
      */
-    public delete1(
-        memberId: number,
-    ): CancelablePromise<ApiResponse> {
+    public delete1(memberId: number): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'DELETE',
-            url: '/api/v1/member/{memberId}',
+            method: "DELETE",
+            url: "/api/v1/member/{memberId}",
             path: {
-                'memberId': memberId,
+                memberId: memberId,
             },
         });
     }
@@ -169,16 +163,16 @@ export class ApiService {
      */
     public create(
         phoneNumber: string,
-        requestBody: StoreReq,
+        requestBody: StoreReq
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/v1/store',
+            method: "POST",
+            url: "/api/v1/store",
             query: {
-                'phoneNumber': phoneNumber,
+                phoneNumber: phoneNumber,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `잘못된 요청`,
             },
@@ -205,13 +199,13 @@ export class ApiService {
      * @throws ApiError
      */
     public createRevenue(
-        requestBody: StoreRevenueReq,
+        requestBody: StoreRevenueReq
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/v1/revenue',
+            method: "POST",
+            url: "/api/v1/revenue",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `잘못된 요청 (필수 필드 누락 또는 형식 오류)`,
                 404: `가게를 찾을 수 없음`,
@@ -234,13 +228,13 @@ export class ApiService {
      * @throws ApiError
      */
     public predict(
-        requestBody: Record<string, any>,
+        requestBody: Record<string, any>
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/v1/predict',
+            method: "POST",
+            url: "/api/v1/predict",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `잘못된 요청 (필수 필드 누락 또는 형식 오류)`,
                 500: `서버 내부 오류`,
@@ -260,14 +254,12 @@ export class ApiService {
      * @returns ApiResponse 등록 성공
      * @throws ApiError
      */
-    public create1(
-        requestBody: MemberReq,
-    ): CancelablePromise<ApiResponse> {
+    public create1(requestBody: MemberReq): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/v1/member',
+            method: "POST",
+            url: "/api/v1/member",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `잘못된 요청 (중복된 전화번호 또는 형식 오류)`,
             },
@@ -292,13 +284,13 @@ export class ApiService {
      * @throws ApiError
      */
     public analysis(
-        requestBody: MarketAnalysisReq,
+        requestBody: MarketAnalysisReq
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/v1/analysis',
+            method: "POST",
+            url: "/api/v1/analysis",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `잘못된 요청 (유효하지 않은 파라미터)`,
                 404: `가게를 찾을 수 없음`,
@@ -314,13 +306,13 @@ export class ApiService {
      * @throws ApiError
      */
     public getStoresByPhoneNumber(
-        phoneNumber: string,
+        phoneNumber: string
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/v1/store/member/{phoneNumber}',
+            method: "GET",
+            url: "/api/v1/store/member/{phoneNumber}",
             path: {
-                'phoneNumber': phoneNumber,
+                phoneNumber: phoneNumber,
             },
             errors: {
                 404: `해당 전화번호로 등록된 가게를 찾을 수 없음`,
@@ -337,13 +329,13 @@ export class ApiService {
      * @throws ApiError
      */
     public getRevenuesByStoreId(
-        storeId: number,
+        storeId: number
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/v1/revenue/{storeId}',
+            method: "GET",
+            url: "/api/v1/revenue/{storeId}",
             path: {
-                'storeId': storeId,
+                storeId: storeId,
             },
             errors: {
                 404: `가게를 찾을 수 없거나 매출 데이터가 없음`,
@@ -358,13 +350,13 @@ export class ApiService {
      * @throws ApiError
      */
     public getByPhoneNumber(
-        phoneNumber: string,
+        phoneNumber: string
     ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/v1/member/phone/{phoneNumber}',
+            method: "GET",
+            url: "/api/v1/member/phone/{phoneNumber}",
             path: {
-                'phoneNumber': phoneNumber,
+                phoneNumber: phoneNumber,
             },
             errors: {
                 404: `해당 전화번호로 등록된 사장님을 찾을 수 없음`,
