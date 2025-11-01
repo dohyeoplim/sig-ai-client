@@ -5,7 +5,7 @@ import BannerWithIcon from "@/shared/components/BannerWithIcon";
 import SummaryCard from "@/shared/components/SummaryCard";
 import ExpandableCard from "@/shared/components/ExpandableCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
-import { LineChart } from "@/shared/components/Charts";
+import { AreaChart } from "@/shared/components/Charts";
 import { useAnalysisData } from "@/shared/api/queries/useAnalysisData";
 import type { QuarterlyRevenueRank } from "@/shared/api/models/MarketAnalysisResponseModel";
 
@@ -55,28 +55,32 @@ export default function HomePage() {
                         animateDelay={0.5}
                     />
                 </div>
-                <ExpandableCard
-                    cardDescription={`상권 매출 그래프 ${
-                        isPending ? "(로딩 중)" : ""
-                    }`}
-                    isExpandable
-                    defaultExpanded
-                    onExpandedChange={() => setChartKey(chartKey + 1)}
-                >
-                    {data && (
-                        <LineChart<QuarterlyRevenueRank>
-                            redrawKey={chartKey}
-                            data={
-                                data.data.revenueComparison
-                                    .quarterlyRevenueRanks
-                            }
-                            dataKey={{
-                                x: "quarter",
-                                y: ["revenue"],
-                            }}
-                        />
-                    )}
-                </ExpandableCard>
+                {!error && (
+                    <ExpandableCard
+                        cardDescription={`상권 매출 그래프 ${
+                            isPending || isFetching ? "(로딩 중)" : ""
+                        }`}
+                        isExpandable
+                        defaultExpanded
+                        onExpandedChange={(expanded) =>
+                            expanded && setChartKey(chartKey + 1)
+                        }
+                    >
+                        {data && (
+                            <AreaChart<QuarterlyRevenueRank>
+                                redrawKey={chartKey}
+                                data={
+                                    data.data.revenueComparison
+                                        .quarterlyRevenueRanks
+                                }
+                                dataKey={{
+                                    x: "quarter",
+                                    y: ["revenue"],
+                                }}
+                            />
+                        )}
+                    </ExpandableCard>
+                )}
             </div>
 
             <ActionSheet

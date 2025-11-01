@@ -121,3 +121,11 @@ http://scripts.sil.org/OFL
         @apply bg-light-surface border-[0.5px] border-grey-100 rounded-[20px];
     }
 }
+
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+.recharts-container:focus,
+.recharts-responsive-container:focus,
+svg:focus {
+    outline: none !important;
+}
