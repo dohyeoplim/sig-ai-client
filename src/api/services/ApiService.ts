@@ -33,12 +33,14 @@ export class ApiService {
     /**
      * 가게 정보 수정
      * 가게 기본 정보를 수정합니다.
+     * @param phoneNumber
      * @param storeId
      * @param requestBody
      * @returns ApiResponse 수정 성공
      * @throws ApiError
      */
     public update(
+        phoneNumber: string,
         storeId: number,
         requestBody: StoreReq
     ): CancelablePromise<ApiResponse> {
@@ -47,6 +49,9 @@ export class ApiService {
             url: "/api/v1/store/{storeId}",
             path: {
                 storeId: storeId,
+            },
+            query: {
+                phoneNumber: phoneNumber,
             },
             body: requestBody,
             mediaType: "application/json",
@@ -58,16 +63,23 @@ export class ApiService {
     /**
      * 가게 정보 삭제
      * 가게 정보를 삭제합니다.
+     * @param phoneNumber
      * @param storeId
      * @returns ApiResponse 삭제 성공
      * @throws ApiError
      */
-    public delete(storeId: number): CancelablePromise<ApiResponse> {
+    public delete(
+        phoneNumber: string,
+        storeId: number
+    ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
             method: "DELETE",
             url: "/api/v1/store/{storeId}",
             path: {
                 storeId: storeId,
+            },
+            query: {
+                phoneNumber: phoneNumber,
             },
         });
     }
@@ -144,14 +156,21 @@ export class ApiService {
      *
      * **참고:** 매출 데이터는 별도 API(/api/v1/revenue)로 등록합니다.
      *
+     * @param phoneNumber
      * @param requestBody
      * @returns ApiResponse 등록 성공
      * @throws ApiError
      */
-    public create(requestBody: StoreReq): CancelablePromise<ApiResponse> {
+    public create(
+        phoneNumber: string,
+        requestBody: StoreReq
+    ): CancelablePromise<ApiResponse> {
         return this.httpRequest.request({
             method: "POST",
             url: "/api/v1/store",
+            query: {
+                phoneNumber: phoneNumber,
+            },
             body: requestBody,
             mediaType: "application/json",
             errors: {

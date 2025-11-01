@@ -1,52 +1,46 @@
 import { useState } from "react";
 import { useSession } from "@/shared/lib/session";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
 import SummaryCard from "@/shared/components/SummaryCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
-// import { useAnalyzeMarket } from "@/features/analysis/api";
 import VanillaTextSelect from "@/shared/components/FormComponents/NonFormik/VanillaTextSelect";
 import { generateQuarterOptions } from "@/shared/utils/generateQuarterOptions";
-import { RefreshCcw } from "lucide-react";
-// import ExpandableCard from "@/shared/components/ExpandableCard";
-// import { AreaChart } from "@/shared/components/Charts";
-// import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
-// import { useAnalysisData } from "@/api/queries/useAnalysisData";
+import { RefreshCcw, Wallet } from "lucide-react";
+import { useStoresByOwnerPhone } from "@/features/store/api";
+import RevenueForm from "./components/RevenueForm";
+import { useRevenues } from "@/features/revenue/api";
+import ExpandableCard from "@/shared/components/ExpandableCard";
+import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
+import { AreaChart } from "@/shared/components/Charts";
+import type { StoreRevenue } from "@/features/revenue/types";
 
 export default function AnalysisPage() {
-    const { isAuthenticated } = useSession();
+    const { isAuthenticated, user } = useSession();
     const location = useLocation();
-    if (!isAuthenticated) {
+
+    if (!isAuthenticated || !user) {
         return <Navigate to="/" replace state={{ from: location }} />;
     }
 
-    const [showSheet, setShowSheet] = useState(false);
-    // const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
+    const navigate = useNavigate();
+
+    const [showRevenueSheet, setShowRevenueSheet] = useState(false);
+    const [showStoreSheet, setStoreShowSheet] = useState(false);
+    const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
 
     const onCloseSheet = () => {
-        setShowSheet(false);
+        setShowRevenueSheet(false);
+        setStoreShowSheet(false);
     };
-
-    // const { isPending, error, data, isFetching } = useAnalysisData({
-    //     quarter: "827004",
-    //     storeId: 1,
-    //     count: 3,
-    //     useMock: true,
-    // });
 
     const quarterOptions = generateQuarterOptions(2023, 2025);
     const [quarter, setQuarter] = useState("202504");
 
-    // const marketAnalysisData = useAnalyzeMarket();
-    // const storeId = user?.storeId ?? 1;
-
-    // const res = marketAnalysisData.mutateAsync({
-    //     storeId,
-    //     quarter,
-    //     count: 8,
-    // });
+    const store = useStoresByOwnerPhone(user.phoneNumber);
+    const revenue = useRevenues(store.data?.data?.[0]?.id);
 
     return (
         <div className="relative">
@@ -65,11 +59,25 @@ export default function AnalysisPage() {
                         options={quarterOptions}
                         value={quarter}
                         onChange={(v) => setQuarter(v.target.value)}
+                        className="h-11"
                     />
 
-                    <button className="card-designed size-[45px] grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all">
-                        <RefreshCcw size={16} />
-                    </button>
+                    <div className="flex items-center gap-1">
+                        <button
+                            className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all"
+                            onClick={() => setShowRevenueSheet(true)}
+                        >
+                            <Wallet size={18} />
+                        </button>
+                        <button
+                            className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all"
+                            onClick={() => {
+                                navigate(0);
+                            }}
+                        >
+                            <RefreshCcw size={16} />
+                        </button>
+                    </div>
                 </div>
 
                 <SummaryCard
@@ -77,13 +85,14 @@ export default function AnalysisPage() {
                     label="위험 수준 분석"
                     visual={<RainbowInlineChart value={0.2} />}
                 />
+
                 <div className="w-full grid grid-cols-2 gap-2">
                     <SummaryCard
-                        value="맛닭꼬끼오 공릉점"
-                        label="탭해서 업데이트"
+                        value="1203만원"
+                        delta="1.3%"
+                        trend="down"
+                        label="전월 대비 매출"
                         animateDelay={0.5}
-                        className="cursor-pointer hover:bg-key-50 transition-colors"
-                        onClick={() => setShowSheet(true)}
                     />
 
                     <SummaryCard
@@ -94,10 +103,13 @@ export default function AnalysisPage() {
                         animateDelay={0.5}
                     />
                 </div>
-                {/* {!error && (
+
+                {!revenue.error && (
                     <ExpandableCard
                         cardDescription={`상권 매출 그래프 ${
-                            isPending || isFetching ? "(로딩 중)" : ""
+                            revenue.isPending || revenue.isFetching
+                                ? "(로딩 중)"
+                                : ""
                         }`}
                         isExpandable
                         defaultExpanded
@@ -105,56 +117,52 @@ export default function AnalysisPage() {
                             expanded && bump("revenue")
                         }
                     >
-                        {data && (
-                            <AreaChart<QuarterlyRevenueRank>
+                        {revenue.data && (
+                            <AreaChart<StoreRevenue>
                                 redrawKey={redraw.revenue}
-                                data={
-                                    data.data.revenueComparison
-                                        .quarterlyRevenueRanks
-                                }
+                                data={revenue.data.data?.revenues}
                                 dataKey={{
-                                    x: "quarter",
-                                    y: ["revenue"],
+                                    x: "month",
+                                    y: ["monthlyRevenue"],
                                 }}
                             />
                         )}
                     </ExpandableCard>
                 )}
 
-                {!error && (
-                    <ExpandableCard
-                        cardDescription={`상권 내 폐업 가게 수 ${
-                            isPending || isFetching ? "(로딩 중)" : ""
-                        }`}
-                        isExpandable
-                        onExpandedChange={(expanded) =>
-                            expanded && bump("closed")
-                        }
+                <div className="w-full grid place-items-center">
+                    <button
+                        className="p-3 font-caption02 text-grey-800 cursor-pointer"
+                        onClick={() => setStoreShowSheet(true)}
                     >
-                        {data && (
-                            <AreaChart<QuarterlyClosedRate>
-                                redrawKey={redraw.closed}
-                                data={
-                                    data.data.closedComparison
-                                        .quarterlyClosedRates
-                                }
-                                dataKey={{
-                                    x: "quarter",
-                                    y: ["closedStoreCount"],
-                                }}
-                            />
-                        )}
-                    </ExpandableCard>
-                )} */}
+                        매장 정보 수정
+                    </button>
+                </div>
             </div>
 
             <ActionSheet
-                title="맛닭꼬끼오 공릉점"
-                isOpen={showSheet}
+                title={store.data?.data?.[0]?.storeName ?? "가게 정보"}
+                isOpen={showStoreSheet}
                 onClose={onCloseSheet}
                 disableDrag
             >
-                <StoreInfoForm afterSubmit={onCloseSheet} />
+                <StoreInfoForm
+                    afterSubmit={onCloseSheet}
+                    phoneNumber={user.phoneNumber}
+                    store={store.data?.data?.[0]}
+                />
+            </ActionSheet>
+
+            <ActionSheet
+                title="매출 정보 입력"
+                isOpen={showRevenueSheet}
+                onClose={onCloseSheet}
+                disableDrag
+            >
+                <RevenueForm
+                    afterSubmit={onCloseSheet}
+                    storeId={store.data?.data?.[0]?.id}
+                />
             </ActionSheet>
         </div>
     );
