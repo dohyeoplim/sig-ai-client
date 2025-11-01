@@ -9,14 +9,14 @@ export const useSession = create<SessionState>()(
             isAuthenticated: false,
             user: null,
 
-            signIn: async (phoneNumber: string) => {
+            signIn: async (_phoneNumber: string) => {
                 const res = await api.getByPhoneNumber("010-1234-1234");
                 const json = res;
 
                 set({
                     isAuthenticated: true,
                     user: {
-                        phoneNumber,
+                        phoneNumber: "010-1234-1234",
                         storeId: json?.data?.storeId,
                         name: json?.data?.name ?? null,
                     },
