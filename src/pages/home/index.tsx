@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
@@ -7,11 +8,14 @@ import ExpandableCard from "@/shared/components/ExpandableCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
 import { AreaChart } from "@/shared/components/Charts";
 import { useAnalysisData } from "@/shared/api/queries/useAnalysisData";
-import type { QuarterlyRevenueRank } from "@/shared/api/models/MarketAnalysisResponseModel";
+import type {
+    QuarterlyClosedRate,
+    QuarterlyRevenueRank,
+} from "@/shared/api/models/MarketAnalysisResponseModel";
 
 export default function HomePage() {
     const [showSheet, setShowSheet] = useState(false);
-    const [chartKey, setChartKey] = useState(0);
+    const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
 
     const onCloseSheet = () => {
         setShowSheet(false);
@@ -63,12 +67,12 @@ export default function HomePage() {
                         isExpandable
                         defaultExpanded
                         onExpandedChange={(expanded) =>
-                            expanded && setChartKey(chartKey + 1)
+                            expanded && bump("revenue")
                         }
                     >
                         {data && (
                             <AreaChart<QuarterlyRevenueRank>
-                                redrawKey={chartKey}
+                                redrawKey={redraw.revenue}
                                 data={
                                     data.data.revenueComparison
                                         .quarterlyRevenueRanks
@@ -76,6 +80,32 @@ export default function HomePage() {
                                 dataKey={{
                                     x: "quarter",
                                     y: ["revenue"],
+                                }}
+                            />
+                        )}
+                    </ExpandableCard>
+                )}
+
+                {!error && (
+                    <ExpandableCard
+                        cardDescription={`상권 내 폐업 가게 수 ${
+                            isPending || isFetching ? "(로딩 중)" : ""
+                        }`}
+                        isExpandable
+                        onExpandedChange={(expanded) =>
+                            expanded && bump("closed")
+                        }
+                    >
+                        {data && (
+                            <AreaChart<QuarterlyClosedRate>
+                                redrawKey={redraw.closed}
+                                data={
+                                    data.data.closedComparison
+                                        .quarterlyClosedRates
+                                }
+                                dataKey={{
+                                    x: "quarter",
+                                    y: ["closedStoreCount"],
                                 }}
                             />
                         )}
