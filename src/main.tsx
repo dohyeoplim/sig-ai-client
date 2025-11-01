@@ -8,6 +8,7 @@ import HomePage from "./pages/home/index.tsx";
 import { createQueryClient } from "./shared/lib/queryClient.ts";
 import { ModalProvider } from "./shared/components/Modal/Provider.tsx";
 import LoadSession from "./shared/lib/session/LoadSession.tsx";
+import AnalysisPage from "./pages/analysis/index.tsx";
 
 const qc = createQueryClient();
 
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
                     <Routes>
                         <Route element={<Layout />}>
                             <Route index element={<HomePage />} />
+                            <Route path="analysis" element={<AnalysisPage />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

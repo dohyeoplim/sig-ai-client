@@ -1,58 +1,42 @@
 import { create } from "zustand";
-import type { SessionState, SessionUser } from "./types";
+import { persist, createJSONStorage } from "zustand/middleware";
+import type { SessionState } from "./types";
 
-const STORAGE_KEY = "sigai.session.v1";
+export const useSession = create<SessionState>()(
+    persist(
+        (set, _get) => ({
+            isAuthenticated: false,
+            user: null,
 
-type Actions = {
-    hydrate: () => void;
-    signIn: (phoneNumber: string) => Promise<void>;
-    signOut: () => void;
-};
+            signIn: async (phoneNumber: string) => {
+                const res = await fetch(
+                    `${
+                        import.meta.env.VITE_API_URL
+                    }/api/v1/member/phone/${encodeURIComponent(phoneNumber)}`
+                );
+                if (!res.ok) throw new Error("User not found");
+                const json = await res.json();
 
-export const useSession = create<SessionState & Actions>((set, _get) => ({
-    isAuthenticated: false,
-    user: null,
+                set({
+                    isAuthenticated: true,
+                    user: {
+                        phoneNumber,
+                        storeId: json?.data?.storeId,
+                        name: json?.data?.name ?? null,
+                    },
+                });
+            },
 
-    hydrate: () => {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        try {
-            const saved = JSON.parse(raw) as SessionState;
-            if (
-                saved?.user?.phoneNumber &&
-                typeof saved?.user?.storeId === "number"
-            ) {
-                set(saved);
-            } else {
-                localStorage.removeItem(STORAGE_KEY);
-            }
-        } catch {
-            localStorage.removeItem(STORAGE_KEY);
+            signOut: () => set({ isAuthenticated: false, user: null }),
+        }),
+        {
+            name: "sigai.session.v1",
+            storage: createJSONStorage(() => localStorage),
+            partialize: (s) => ({
+                isAuthenticated: s.isAuthenticated,
+                user: s.user,
+            }),
+            onRehydrateStorage: () => (_state) => {},
         }
-    },
-
-    signIn: async (phoneNumber: string) => {
-        const res = await fetch(
-            `${
-                import.meta.env.VITE_API_URL
-            }/api/v1/member/phone/${encodeURIComponent(phoneNumber)}`
-        );
-        if (!res.ok) throw new Error("User not found");
-        const json = await res.json();
-
-        const user: SessionUser = {
-            phoneNumber,
-            storeId: json?.data?.storeId,
-            name: json?.data?.name ?? null,
-        };
-
-        const next: SessionState = { isAuthenticated: true, user };
-        set(next);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    },
-
-    signOut: () => {
-        set({ isAuthenticated: false, user: null });
-        localStorage.removeItem(STORAGE_KEY);
-    },
-}));
+    )
+);

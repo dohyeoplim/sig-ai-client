@@ -7,4 +7,6 @@ export type SessionUser = {
 export type SessionState = {
     isAuthenticated: boolean;
     user: SessionUser | null;
+    signIn: (phoneNumber: string) => Promise<void>;
+    signOut: () => void;
 };
