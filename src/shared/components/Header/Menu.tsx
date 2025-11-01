@@ -1,4 +1,5 @@
 import { ChevronUp } from "lucide-react";
+import LoginForm from "./LoginForm";
 
 type MenuProps = {
     close: () => void;
@@ -18,33 +19,7 @@ export default function Menu({ close }: MenuProps) {
 
             <hr className="text-grey-100" />
 
-            <p
-                className="font-body01 cursor-pointer"
-                onClick={(e) => {
-                    e.preventDefault();
-                    close();
-                }}
-            >
-                홈
-            </p>
-            <p
-                className="font-body01 cursor-pointer"
-                onClick={(e) => {
-                    e.preventDefault();
-                    close();
-                }}
-            >
-                매장 관리
-            </p>
-            <p
-                className="font-body01 cursor-pointer"
-                onClick={(e) => {
-                    e.preventDefault();
-                    close();
-                }}
-            >
-                상권 분석
-            </p>
+            <LoginForm />
 
             <div
                 className="flex justify-center cursor-pointer"
