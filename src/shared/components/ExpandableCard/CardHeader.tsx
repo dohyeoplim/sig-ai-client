@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 import type { ExpandableCardTheme } from "./types";
 
 type CardHeaderProps = {
-    title: string | React.ReactNode;
+    title?: string | React.ReactNode;
     description?: string | React.ReactNode;
     cardTheme?: ExpandableCardTheme;
     includeIndicator?: boolean;
@@ -41,11 +41,9 @@ export function CardHeader({
                     <h2 className="truncate font-body03 text-grey-900">
                         {title}
                     </h2>
-                    {description ? (
-                        <p className="font-caption02 text-grey-700">
-                            {description}
-                        </p>
-                    ) : null}
+                    <p className="font-caption02 text-grey-700">
+                        {description}
+                    </p>
                 </div>
             </div>
 

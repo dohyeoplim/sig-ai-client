@@ -1,6 +1,8 @@
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
 import SummaryCard from "@/shared/components/SummaryCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
+import ExpandableCard from "@/shared/components/ExpandableCard";
+import { LineChart } from "@/shared/components/Charts";
 
 export default function HomeContent() {
     return (
@@ -33,6 +35,10 @@ export default function HomeContent() {
                     animateDelay={0.5}
                 />
             </div>
+
+            <ExpandableCard cardDescription="매출 그래프">
+                <LineChart redrawKey={0} />
+            </ExpandableCard>
         </div>
     );
 }

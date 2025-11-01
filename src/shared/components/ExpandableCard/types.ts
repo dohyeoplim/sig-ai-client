@@ -1,5 +1,5 @@
 export type ExpandableCardProps = {
-    cardTitle: string | React.ReactNode;
+    cardTitle?: string | React.ReactNode;
     cardDescription?: string | React.ReactNode;
     cardTheme?: ExpandableCardTheme;
     includeIndicator?: boolean;
