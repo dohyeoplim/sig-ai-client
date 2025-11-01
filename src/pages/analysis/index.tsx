@@ -6,6 +6,10 @@ import StoreInfoForm from "./components/StoreInfoForm";
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
 import SummaryCard from "@/shared/components/SummaryCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
+// import { useAnalyzeMarket } from "@/features/analysis/api";
+import VanillaTextSelect from "@/shared/components/FormComponents/NonFormik/VanillaTextSelect";
+import { generateQuarterOptions } from "@/shared/utils/generateQuarterOptions";
+import { RefreshCcw } from "lucide-react";
 // import ExpandableCard from "@/shared/components/ExpandableCard";
 // import { AreaChart } from "@/shared/components/Charts";
 // import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
@@ -32,6 +36,18 @@ export default function AnalysisPage() {
     //     useMock: true,
     // });
 
+    const quarterOptions = generateQuarterOptions(2023, 2025);
+    const [quarter, setQuarter] = useState("202504");
+
+    // const marketAnalysisData = useAnalyzeMarket();
+    // const storeId = user?.storeId ?? 1;
+
+    // const res = marketAnalysisData.mutateAsync({
+    //     storeId,
+    //     quarter,
+    //     count: 8,
+    // });
+
     return (
         <div className="relative">
             <div className="w-full grid grid-cols-1 gap-2">
@@ -41,6 +57,21 @@ export default function AnalysisPage() {
                     label="위험 신호"
                     buttonLabel="AI 추천 솔루션"
                 />
+
+                <hr className="border-[0.5px] border-grey-100 my-2" />
+
+                <div className="w-full flex items-center justify-between">
+                    <VanillaTextSelect
+                        options={quarterOptions}
+                        value={quarter}
+                        onChange={(v) => setQuarter(v.target.value)}
+                    />
+
+                    <button className="card-designed size-[45px] grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all">
+                        <RefreshCcw size={16} />
+                    </button>
+                </div>
+
                 <SummaryCard
                     value="안전"
                     label="위험 수준 분석"
