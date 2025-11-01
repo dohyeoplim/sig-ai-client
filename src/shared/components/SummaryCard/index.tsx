@@ -11,6 +11,7 @@ export default function SummaryCard({
     label,
     visual,
     icon,
+    animate = true,
     animateDelay,
     className,
     ...props
@@ -30,7 +31,7 @@ export default function SummaryCard({
         >
             <div className="w-full flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                    {numericPart !== null ? (
+                    {animate && numericPart !== null ? (
                         <AnimatedValue
                             display={display}
                             suffix={suffix}
@@ -45,16 +46,35 @@ export default function SummaryCard({
                     <div className="text-grey-900">{icon}</div>
                 </div>
 
-                {delta && trend && showDeltaNow && (
-                    <motion.div
+                {animate ? (
+                    delta &&
+                    trend &&
+                    showDeltaNow && (
+                        <motion.div
+                            className={`flex items-center gap-0.5 ${
+                                trend === "down"
+                                    ? "text-safe-blue"
+                                    : "text-danger-red"
+                            }`}
+                            initial={{ opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.2, delay: 0.05 }}
+                        >
+                            {trend === "down" ? (
+                                <ChevronDown size={12} strokeWidth={2} />
+                            ) : (
+                                <ChevronUp size={12} strokeWidth={2} />
+                            )}
+                            <span className="font-caption01">{delta}</span>
+                        </motion.div>
+                    )
+                ) : (
+                    <div
                         className={`flex items-center gap-0.5 ${
                             trend === "down"
                                 ? "text-safe-blue"
                                 : "text-danger-red"
                         }`}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2, delay: 0.05 }}
                     >
                         {trend === "down" ? (
                             <ChevronDown size={12} strokeWidth={2} />
@@ -62,7 +82,7 @@ export default function SummaryCard({
                             <ChevronUp size={12} strokeWidth={2} />
                         )}
                         <span className="font-caption01">{delta}</span>
-                    </motion.div>
+                    </div>
                 )}
             </div>
 
