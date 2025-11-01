@@ -13,6 +13,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 export type { ApiResponse } from './models/ApiResponse';
 export type { MarketAnalysisReq } from './models/MarketAnalysisReq';
 export type { MemberReq } from './models/MemberReq';
+export type { PredictReq } from './models/PredictReq';
 export { StoreReq } from './models/StoreReq';
 export type { StoreRevenueReq } from './models/StoreRevenueReq';
 

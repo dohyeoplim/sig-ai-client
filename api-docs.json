@@ -153,6 +153,10 @@
                     }
                 ],
                 "responses": {
+                    "404": {
+                        "description": "사장님을 찾을 수 없음",
+                        "content": { "application/json": {} }
+                    },
                     "200": {
                         "description": "조회 성공",
                         "content": {
@@ -171,10 +175,6 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "사장님을 찾을 수 없음",
-                        "content": { "application/json": {} }
                     }
                 }
             },
@@ -207,6 +207,10 @@
                     "required": true
                 },
                 "responses": {
+                    "404": {
+                        "description": "사장님을 찾을 수 없음",
+                        "content": { "application/json": {} }
+                    },
                     "200": {
                         "description": "수정 성공",
                         "content": {
@@ -221,10 +225,6 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "사장님을 찾을 수 없음",
-                        "content": { "application/json": {} }
                     }
                 }
             },
@@ -340,6 +340,24 @@
                     "required": true
                 },
                 "responses": {
+                    "400": {
+                        "description": "잘못된 요청 (필수 필드 누락 또는 형식 오류)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                },
+                                "example": {
+                                    "status": "fail",
+                                    "data": {
+                                        "field": "year",
+                                        "message": "년은 1950 이상이어야 합니다."
+                                    },
+                                    "message": "잘못된 요청입니다"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "가게를 찾을 수 없음",
                         "content": {
@@ -364,24 +382,6 @@
                                 }
                             }
                         }
-                    },
-                    "400": {
-                        "description": "잘못된 요청 (필수 필드 누락 또는 형식 오류)",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ApiResponse"
-                                },
-                                "example": {
-                                    "status": "fail",
-                                    "data": {
-                                        "field": "year",
-                                        "message": "년은 1950 이상이어야 합니다."
-                                    },
-                                    "message": "잘못된 요청입니다"
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -390,11 +390,15 @@
             "post": {
                 "tags": ["예측 API"],
                 "summary": "폐업 예측",
-                "description": "가맹점의 상세 정보를 받아 해당 가맹점의 폐업 위험도를 예측합니다.\n\n**필수 정보:**\n- 가맹점 기본 정보 (주소, 업종, 개설일 등)\n- 고객 연령대별/성별 비중\n- 고객 행태 (재방문율, 신규고객율 등)\n- 주변 상권 정보 (동일업종 폐업율 등)\n- 매출 관련 구간 정보\n",
+                "description": "가맹점의 상세 정보를 받아 해당 가맹점의 폐업 위험도를 예측합니다.\n\n**필수 정보:**\n- 가맹점 ID (storeId)\n- 현재 분기 (quarter)\n- 운영 개월 수 (monthsOfOperation)\n\n",
                 "operationId": "predict",
                 "requestBody": {
                     "content": {
-                        "application/json": { "schema": { "type": "object" } }
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PredictReq"
+                            }
+                        }
                     },
                     "required": true
                 },
@@ -409,16 +413,28 @@
                                 "example": {
                                     "status": "success",
                                     "data": {
-                                        "prediction_label": 1,
-                                        "closure_risk_probability": "85.45%"
+                                        "prediction_tier": "주의",
+                                        "xgb_probability": 0.1504,
+                                        "rf_probability": 0.4522,
+                                        "threshold_caution": 0.0997,
+                                        "threshold_danger": 0.552,
+                                        "changedRevenue": {
+                                            "rankChange": null,
+                                            "percentileChange": null,
+                                            "countChange": -50
+                                        },
+                                        "changeClose": {
+                                            "closedRate": 5.5,
+                                            "rateChange": 1
+                                        }
                                     },
                                     "message": null
                                 }
                             }
                         }
                     },
-                    "400": {
-                        "description": "잘못된 요청 (필수 필드 누락 또는 형식 오류)",
+                    "404": {
+                        "description": "가맹점을 찾을 수 없음",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -426,11 +442,8 @@
                                 },
                                 "example": {
                                     "status": "fail",
-                                    "data": {
-                                        "field": "MCT_BSE_AR",
-                                        "message": "가맹점 주소는 필수입니다"
-                                    },
-                                    "message": "잘못된 요청입니다"
+                                    "data": null,
+                                    "message": "해당 가맹점을 찾을 수 없습니다."
                                 }
                             }
                         }
@@ -441,6 +454,29 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ApiResponse"
+                                },
+                                "example": {
+                                    "status": "error",
+                                    "data": null,
+                                    "message": "서버 내부 오류가 발생했습니다."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "잘못된 요청 (유효하지 않은 파라미터)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                },
+                                "example": {
+                                    "status": "fail",
+                                    "data": {
+                                        "field": "storeId",
+                                        "message": "가맹점 ID는 필수입니다."
+                                    },
+                                    "message": "잘못된 요청입니다"
                                 }
                             }
                         }
@@ -469,6 +505,10 @@
                     "required": true
                 },
                 "responses": {
+                    "400": {
+                        "description": "잘못된 요청 (중복된 전화번호 또는 형식 오류)",
+                        "content": { "application/json": {} }
+                    },
                     "200": {
                         "description": "등록 성공",
                         "content": {
@@ -483,10 +523,6 @@
                                 }
                             }
                         }
-                    },
-                    "400": {
-                        "description": "잘못된 요청 (중복된 전화번호 또는 형식 오류)",
-                        "content": { "application/json": {} }
                     }
                 }
             }
@@ -508,8 +544,26 @@
                     "required": true
                 },
                 "responses": {
-                    "404": {
-                        "description": "가게를 찾을 수 없음",
+                    "400": {
+                        "description": "잘못된 요청 (유효하지 않은 파라미터)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                },
+                                "example": {
+                                    "status": "fail",
+                                    "data": {
+                                        "field": "quarter",
+                                        "message": "분기는 YYYYQQ 형식이어야 합니다"
+                                    },
+                                    "message": "잘못된 요청입니다"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "서버 내부 오류",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -540,26 +594,8 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "잘못된 요청 (유효하지 않은 파라미터)",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ApiResponse"
-                                },
-                                "example": {
-                                    "status": "fail",
-                                    "data": {
-                                        "field": "quarter",
-                                        "message": "분기는 YYYYQQ 형식이어야 합니다"
-                                    },
-                                    "message": "잘못된 요청입니다"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "서버 내부 오류",
+                    "404": {
+                        "description": "가게를 찾을 수 없음",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -622,10 +658,6 @@
                     }
                 ],
                 "responses": {
-                    "404": {
-                        "description": "해당 전화번호로 등록된 가게를 찾을 수 없음",
-                        "content": { "application/json": {} }
-                    },
                     "200": {
                         "description": "조회 성공",
                         "content": {
@@ -659,6 +691,10 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "해당 전화번호로 등록된 가게를 찾을 수 없음",
+                        "content": { "application/json": {} }
                     }
                 }
             }
@@ -678,16 +714,6 @@
                     }
                 ],
                 "responses": {
-                    "404": {
-                        "description": "가게를 찾을 수 없거나 매출 데이터가 없음",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ApiResponse"
-                                }
-                            }
-                        }
-                    },
                     "200": {
                         "description": "매출 데이터 조회 성공",
                         "content": {
@@ -720,6 +746,16 @@
                                         ]
                                     },
                                     "message": null
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "가게를 찾을 수 없거나 매출 데이터가 없음",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
                                 }
                             }
                         }
@@ -2028,6 +2064,15 @@
                     "year": { "type": "integer", "format": "int32" },
                     "month": { "type": "integer", "format": "int32" },
                     "storeId": { "type": "integer", "format": "int64" }
+                }
+            },
+            "PredictReq": {
+                "required": ["monthsOfOperation", "quarter", "storeId"],
+                "type": "object",
+                "properties": {
+                    "storeId": { "type": "integer", "format": "int64" },
+                    "quarter": { "type": "string" },
+                    "monthsOfOperation": { "type": "string" }
                 }
             },
             "MarketAnalysisReq": {
