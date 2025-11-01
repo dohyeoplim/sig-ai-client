@@ -23,9 +23,8 @@ export default function LoginForm({
         <Formik
             initialValues={{ nickname: "", phonenumber: "" }}
             validationSchema={LoginFormSchema}
-            onSubmit={(values, actions) => {
+            onSubmit={(_values, actions) => {
                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
                     actions.setSubmitting(false);
                     afterSubmit?.();
                 }, 400);
