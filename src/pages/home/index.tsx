@@ -1,7 +1,6 @@
 import InfiniteCarousel from "@/shared/components/InfiniteCarousel";
 import Hero from "./components/Hero";
-import Small from "./components/CarouselItems/Small";
-import Large from "./components/CarouselItems/Large";
+import DemoCard from "./components/CarouselItems/DemoCard";
 
 export default function HomePage() {
     return (
@@ -12,7 +11,7 @@ export default function HomePage() {
                 <InfiniteCarousel height="84px" speed={8}>
                     {Array.from({ length: 8 }).map((_, i) => (
                         <div key={i} className="px-2">
-                            <Small />
+                            <DemoCard className="min-w-45" />
                         </div>
                     ))}
                 </InfiniteCarousel>
@@ -20,7 +19,7 @@ export default function HomePage() {
                 <InfiniteCarousel height="84px" speed={10}>
                     {Array.from({ length: 8 }).map((_, i) => (
                         <div key={i} className="px-2">
-                            <Large />
+                            <DemoCard className="min-w-60" />
                         </div>
                     ))}
                 </InfiniteCarousel>
