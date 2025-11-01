@@ -1,6 +1,6 @@
 import SummaryCard from "@/shared/components/SummaryCard";
 
-export default function Small() {
+export default function Large() {
     const labels = [
         "전월 대비 매출",
         "재방문 고객 비율",
@@ -25,7 +25,7 @@ export default function Small() {
                 trend={trend as "up" | "down"}
                 label={label}
                 animate={false}
-                className="min-w-45"
+                className="min-w-60"
             />
         </div>
     );

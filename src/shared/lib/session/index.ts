@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { SessionState } from "./types";
+import { api } from "../api";
 
 export const useSession = create<SessionState>()(
     persist(
@@ -9,11 +10,8 @@ export const useSession = create<SessionState>()(
             user: null,
 
             signIn: async (phoneNumber: string) => {
-                const res = await fetch(
-                    `/api/v1/member/phone/${encodeURIComponent(phoneNumber)}`
-                );
-                if (!res.ok) throw new Error("User not found");
-                const json = await res.json();
+                const res = await api.getByPhoneNumber(phoneNumber);
+                const json = res;
 
                 set({
                     isAuthenticated: true,
