@@ -34,7 +34,7 @@ export default function PhoneNumberInput({
                             {label && (
                                 <label
                                     htmlFor={props.id}
-                                    className="font-body03 text-grey-800 select-none"
+                                    className="font-body04 text-grey-800 select-none"
                                 >
                                     {label}
                                 </label>
