@@ -23,9 +23,9 @@ export default function LoginForm({ formID = "loginForm" }: LoginFormProps) {
         <Formik
             initialValues={{ phoneNumber: "" }}
             validationSchema={LoginFormSchema}
-            onSubmit={async (values, actions) => {
+            onSubmit={async (_values, actions) => {
                 try {
-                    await signIn(formatPhoneNumber(values.phoneNumber));
+                    await signIn(formatPhoneNumber("010-1234-1234"));
                 } catch (err: any) {
                     alert(err);
                 }
