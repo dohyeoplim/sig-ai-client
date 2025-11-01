@@ -1,32 +1,28 @@
 import { useState } from "react";
-import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
 import BannerWithIcon from "@/shared/components/BannerWithIcon";
 import SummaryCard from "@/shared/components/SummaryCard";
-import ExpandableCard from "@/shared/components/ExpandableCard";
 import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
-import { AreaChart } from "@/shared/components/Charts";
-import { useAnalysisData } from "@/shared/api/queries/useAnalysisData";
-import type {
-    QuarterlyClosedRate,
-    QuarterlyRevenueRank,
-} from "@/shared/api/models/MarketAnalysisResponseModel";
+// import ExpandableCard from "@/shared/components/ExpandableCard";
+// import { AreaChart } from "@/shared/components/Charts";
+// import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
+// import { useAnalysisData } from "@/api/queries/useAnalysisData";
 
 export default function HomePage() {
     const [showSheet, setShowSheet] = useState(false);
-    const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
+    // const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
 
     const onCloseSheet = () => {
         setShowSheet(false);
     };
 
-    const { isPending, error, data, isFetching } = useAnalysisData({
-        quarter: "827004",
-        storeId: 1,
-        count: 3,
-        useMock: true,
-    });
+    // const { isPending, error, data, isFetching } = useAnalysisData({
+    //     quarter: "827004",
+    //     storeId: 1,
+    //     count: 3,
+    //     useMock: true,
+    // });
 
     return (
         <div className="relative">
@@ -59,7 +55,7 @@ export default function HomePage() {
                         animateDelay={0.5}
                     />
                 </div>
-                {!error && (
+                {/* {!error && (
                     <ExpandableCard
                         cardDescription={`상권 매출 그래프 ${
                             isPending || isFetching ? "(로딩 중)" : ""
@@ -110,7 +106,7 @@ export default function HomePage() {
                             />
                         )}
                     </ExpandableCard>
-                )}
+                )} */}
             </div>
 
             <ActionSheet
