@@ -3,8 +3,8 @@
     "message": "상권 분석이 완료되었습니다",
     "data": {
         "storeId": 1,
-        "storeName": "맛닭꼬끼오 공릉점",
-        "analyzedAt": "2025-11-01",
+        "storeName": "행복한 카페",
+        "analyzedAt": "2024-11-01",
 
         "revenueComparison": {
             "quarterlyRevenueRanks": [

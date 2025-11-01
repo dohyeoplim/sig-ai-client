@@ -1,20 +1,34 @@
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { SAMPLE } from "./data";
+import type { ChartProps } from "./types";
+import { formatNumberShort } from "@/shared/utils/numberFormatter";
+import { formatQuarterLabel } from "@/shared/utils/quarterFormatter";
 
-export default function _LineChart({ redrawKey = 0 }: { redrawKey: number }) {
+export default function _LineChart<T>({
+    redrawKey = 0,
+    data,
+    dataKey,
+}: ChartProps<T>) {
     return (
         <LineChart
             key={redrawKey}
             style={{ width: "100%", aspectRatio: 1.618 }}
             responsive
-            data={SAMPLE}
+            data={data}
             margin={{ left: -8, right: 8, top: 10 }}
         >
             <CartesianGrid strokeDasharray="3 3" />
-            <Line dataKey="pv" stroke="#82ca9d" strokeWidth={1.5} />
-            <Line dataKey="uv" stroke="#8884d8" strokeWidth={1.5} />
-            <XAxis className="font-caption02" dataKey="name" />
-            <YAxis className="font-caption02" />
+            {dataKey.y.map((k) => (
+                <Line key={k} dataKey={k} stroke="#82ca9d" strokeWidth={1.5} />
+            ))}
+            <XAxis
+                className="font-caption02"
+                dataKey={dataKey.x}
+                tickFormatter={formatQuarterLabel}
+            />
+            <YAxis
+                className="font-caption02"
+                tickFormatter={formatNumberShort}
+            />
         </LineChart>
     );
 }

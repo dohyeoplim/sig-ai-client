@@ -39,7 +39,7 @@ export interface AnalysisData {
     closedComparison: ClosedComparison;
 }
 
-export interface AnalysisResponseModel {
+export interface MarketAnalysisResponseModel {
     status: string;
     message: string;
     data: AnalysisData;
