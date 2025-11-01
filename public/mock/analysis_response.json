@@ -1,0 +1,146 @@
+{
+    "status": "success",
+    "message": "상권 분석이 완료되었습니다",
+    "data": {
+        "storeId": 1,
+        "storeName": "맛닭꼬끼오 공릉점",
+        "analyzedAt": "2025-11-01",
+
+        "revenueComparison": {
+            "quarterlyRevenueRanks": [
+                {
+                    "quarter": "202404",
+                    "revenue": 45000000,
+                    "topPercentile": 23.5,
+                    "totalStoreCount": 127,
+                    "rank": 30,
+                    "rankChange": 5
+                },
+                {
+                    "quarter": "202403",
+                    "revenue": 42000000,
+                    "topPercentile": 27.6,
+                    "totalStoreCount": 125,
+                    "rank": 35,
+                    "rankChange": -2
+                },
+                {
+                    "quarter": "202402",
+                    "revenue": 40000000,
+                    "topPercentile": 26.4,
+                    "totalStoreCount": 123,
+                    "rank": 33,
+                    "rankChange": 3
+                },
+                {
+                    "quarter": "202401",
+                    "revenue": 38000000,
+                    "topPercentile": 29.3,
+                    "totalStoreCount": 120,
+                    "rank": 36,
+                    "rankChange": -1
+                },
+                {
+                    "quarter": "202304",
+                    "revenue": 37000000,
+                    "topPercentile": 29.2,
+                    "totalStoreCount": 118,
+                    "rank": 35,
+                    "rankChange": 2
+                },
+                {
+                    "quarter": "202303",
+                    "revenue": 35000000,
+                    "topPercentile": 31.4,
+                    "totalStoreCount": 115,
+                    "rank": 37,
+                    "rankChange": -4
+                },
+                {
+                    "quarter": "202302",
+                    "revenue": 33000000,
+                    "topPercentile": 28.7,
+                    "totalStoreCount": 112,
+                    "rank": 33,
+                    "rankChange": 1
+                },
+                {
+                    "quarter": "202301",
+                    "revenue": 32000000,
+                    "topPercentile": 30.4,
+                    "totalStoreCount": 110,
+                    "rank": 34,
+                    "rankChange": null
+                }
+            ],
+            "competitionIntensity": 127.0
+        },
+
+        "populationComparison": {
+            "available": false
+        },
+
+        "closedComparison": {
+            "quarterlyClosedRates": [
+                {
+                    "quarter": "202404",
+                    "closedRate": 8.5,
+                    "closedStoreCount": 11,
+                    "totalStoreCount": 127,
+                    "rateChange": 0.3
+                },
+                {
+                    "quarter": "202403",
+                    "closedRate": 8.2,
+                    "closedStoreCount": 10,
+                    "totalStoreCount": 125,
+                    "rateChange": -0.5
+                },
+                {
+                    "quarter": "202402",
+                    "closedRate": 8.7,
+                    "closedStoreCount": 11,
+                    "totalStoreCount": 123,
+                    "rateChange": 0.8
+                },
+                {
+                    "quarter": "202401",
+                    "closedRate": 7.9,
+                    "closedStoreCount": 9,
+                    "totalStoreCount": 120,
+                    "rateChange": -0.2
+                },
+                {
+                    "quarter": "202304",
+                    "closedRate": 8.1,
+                    "closedStoreCount": 10,
+                    "totalStoreCount": 118,
+                    "rateChange": 0.4
+                },
+                {
+                    "quarter": "202303",
+                    "closedRate": 7.7,
+                    "closedStoreCount": 9,
+                    "totalStoreCount": 115,
+                    "rateChange": -0.6
+                },
+                {
+                    "quarter": "202302",
+                    "closedRate": 8.3,
+                    "closedStoreCount": 9,
+                    "totalStoreCount": 112,
+                    "rateChange": 0.5
+                },
+                {
+                    "quarter": "202301",
+                    "closedRate": 7.8,
+                    "closedStoreCount": 9,
+                    "totalStoreCount": 110,
+                    "rateChange": null
+                }
+            ],
+            "averageClosedRate": 8.2,
+            "trend": "STABLE"
+        }
+    }
+}
