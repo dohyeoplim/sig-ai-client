@@ -10,6 +10,13 @@ export default function Large() {
         "매장 방문 수",
         "신규 고객 증가율",
         "고객 만족도 지수",
+        "직원 근속률",
+        "월별 성장률",
+        "객단가 변화율",
+        "재구매율",
+        "신규 가입자 수",
+        "리뷰 긍정률",
+        "이탈 고객률",
     ];
 
     const label = labels[Math.floor(Math.random() * labels.length)];

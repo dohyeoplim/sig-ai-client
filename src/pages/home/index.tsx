@@ -5,7 +5,7 @@ import Large from "./components/CarouselItems/Large";
 
 export default function HomePage() {
     return (
-        <div className="flex flex-col pt-4 gap-4">
+        <div className="flex flex-col pt-4 gap-12">
             <Hero />
 
             <div className="flex flex-col gap-2">

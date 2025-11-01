@@ -120,6 +120,15 @@ http://scripts.sil.org/OFL
     .card-designed {
         @apply bg-light-surface border-[0.5px] border-grey-100 rounded-[20px];
     }
+
+    .full-bleed {
+        position: relative;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
 }
 
 .recharts-wrapper:focus,

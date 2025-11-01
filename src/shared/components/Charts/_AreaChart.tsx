@@ -7,6 +7,8 @@ export default function _AreaChart<T>({
     redrawKey = 0,
     data,
     dataKey,
+    animate = true,
+    stopColors = ["#1A5319", "#7FAE87", "#FFFFFF"],
 }: ChartProps<T>) {
     return (
         <AreaChart
@@ -29,17 +31,17 @@ export default function _AreaChart<T>({
                         >
                             <stop
                                 offset="30%"
-                                stopColor="#1A5319"
+                                stopColor={stopColors[0]}
                                 stopOpacity={0.4}
                             />
                             <stop
                                 offset="75%"
-                                stopColor="#7FAE87"
+                                stopColor={stopColors[1]}
                                 stopOpacity={0.3}
                             />
                             <stop
                                 offset="95%"
-                                stopColor="#FFFFFF"
+                                stopColor={stopColors[2]}
                                 stopOpacity={0.2}
                             />
                         </linearGradient>
@@ -49,6 +51,7 @@ export default function _AreaChart<T>({
                         dataKey={k}
                         stroke="#999999"
                         fill="url(#colorView)"
+                        isAnimationActive={animate}
                     />
                 </>
             ))}

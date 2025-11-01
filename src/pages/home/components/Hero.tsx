@@ -15,7 +15,7 @@ export default function Hero() {
                     <p>당신의 비즈니스.</p>
                 </h1>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-6">
                     <h2 className="font-body04 text-grey-800 flex flex-col gap-px">
                         <p>SIG:AI로,</p>
                         <p>보이지 않던 위험을 발견하세요.</p>
@@ -48,7 +48,7 @@ export default function Hero() {
             <img
                 src={`${import.meta.env.BASE_URL}hero-icon.png`}
                 alt="SIG:AI"
-                className="absolute top-0 right-0 h-50 z-0"
+                className="absolute top-0 right-0 h-55 z-0"
             />
         </div>
     );
