@@ -1,14 +1,13 @@
 import { ChevronUp } from "lucide-react";
 import LoginForm from "./LoginForm";
 import { useSession } from "@/shared/lib/session";
-import { Link } from "react-router-dom";
+import { useHeaderMenu } from "./headerStore";
+import { Link, useNavigate } from "react-router-dom";
 
-type MenuProps = {
-    close: () => void;
-};
-
-export default function Menu({ close }: MenuProps) {
+export default function Menu() {
     const { user, isAuthenticated, signOut } = useSession();
+    const { close } = useHeaderMenu();
+    const navigate = useNavigate();
 
     return (
         <div className="flex flex-col gap-4 pb-2">
@@ -58,6 +57,8 @@ export default function Menu({ close }: MenuProps) {
                         onClick={(e) => {
                             e.preventDefault();
                             signOut();
+                            navigate("/");
+                            close();
                         }}
                     >
                         로그아웃
