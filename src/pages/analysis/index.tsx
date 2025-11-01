@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "@/shared/lib/session";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import ActionSheet from "@/shared/components/ActionSheet";
@@ -16,6 +16,7 @@ import ExpandableCard from "@/shared/components/ExpandableCard";
 import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
 import { AreaChart } from "@/shared/components/Charts";
 import type { StoreRevenue } from "@/features/revenue/types";
+import { usePredictClosureRisk } from "@/features/predict/api";
 
 export default function AnalysisPage() {
     const { isAuthenticated, user } = useSession();
@@ -37,10 +38,20 @@ export default function AnalysisPage() {
     };
 
     const quarterOptions = generateQuarterOptions(2023, 2025);
-    const [quarter, setQuarter] = useState("202504");
+    const [quarter, setQuarter] = useState("20254");
 
     const store = useStoresByOwnerPhone(user.phoneNumber);
-    const revenue = useRevenues(store.data?.data?.[0]?.id);
+    const storeId = store.data?.data?.[0]?.id;
+    const dangerPrediction = usePredictClosureRisk();
+    const revenue = useRevenues(storeId);
+
+    useEffect(() => {
+        dangerPrediction.mutate({
+            storeId,
+            quarter,
+            monthsOfOperation: "12개월",
+        });
+    }, [storeId, quarter]);
 
     return (
         <div className="relative">
@@ -81,9 +92,17 @@ export default function AnalysisPage() {
                 </div>
 
                 <SummaryCard
-                    value="안전"
+                    value={dangerPrediction.data?.data?.predictionTier}
                     label="위험 수준 분석"
-                    visual={<RainbowInlineChart value={0.2} />}
+                    visual={
+                        dangerPrediction.data?.data && (
+                            <RainbowInlineChart
+                                value={
+                                    dangerPrediction.data?.data.xgbProbability
+                                }
+                            />
+                        )
+                    }
                 />
 
                 <div className="w-full grid grid-cols-2 gap-2">

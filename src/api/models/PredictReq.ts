@@ -7,4 +7,3 @@ export type PredictReq = {
     quarter: string;
     monthsOfOperation: string;
 };
-
