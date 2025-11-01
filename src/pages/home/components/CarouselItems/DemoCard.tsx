@@ -38,14 +38,21 @@ export default function DemoCard({ className }: React.ComponentProps<"div">) {
         value = `${(Math.random() * 100).toFixed(1)}`;
     }
 
-    const delta = (Math.random() * 5).toFixed(1);
-    const trend = Math.random() > 0.5 ? "up" : "down";
+    const delta = (Math.random() * 5 + 0.5).toFixed(1);
+
+    const negativeIsGood =
+        label.includes("이탈") ||
+        label.includes("취소") ||
+        label.includes("불만") ||
+        label.includes("지연");
+
+    const trend = negativeIsGood ? "down" : "up";
 
     return (
         <SummaryCard
             value={value}
             delta={`${delta}%`}
-            trend={trend as "up" | "down"}
+            trend={trend}
             label={label}
             animate={false}
             className={className}

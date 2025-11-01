@@ -11,7 +11,7 @@ export default function HomePage() {
                 <InfiniteCarousel height="84px" speed={8}>
                     {Array.from({ length: 8 }).map((_, i) => (
                         <div key={i} className="px-2">
-                            <DemoCard className="min-w-45" />
+                            <DemoCard className="min-w-40" />
                         </div>
                     ))}
                 </InfiniteCarousel>
@@ -19,7 +19,7 @@ export default function HomePage() {
                 <InfiniteCarousel height="84px" speed={10}>
                     {Array.from({ length: 8 }).map((_, i) => (
                         <div key={i} className="px-2">
-                            <DemoCard className="min-w-60" />
+                            <DemoCard className="min-w-55" />
                         </div>
                     ))}
                 </InfiniteCarousel>
