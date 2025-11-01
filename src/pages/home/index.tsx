@@ -1,24 +1,62 @@
 import { useState } from "react";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
-import FloatingButton from "./components/FloatingButton";
-import HomeContent from "./components/HomeContent";
+import BannerWithIcon from "@/shared/components/BannerWithIcon";
+import SummaryCard from "@/shared/components/SummaryCard";
+import ExpandableCard from "@/shared/components/ExpandableCard";
+import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
+import { LineChart } from "@/shared/components/Charts";
 
 export default function HomePage() {
     const [showSheet, setShowSheet] = useState(false);
+    const [chartKey, setChartKey] = useState(0);
 
     const onCloseSheet = () => {
         setShowSheet(false);
     };
 
     return (
-        <div className="relative h-full">
-            <HomeContent />
+        <div className="relative">
+            <div className="w-full grid grid-cols-1 gap-2">
+                <BannerWithIcon
+                    title="핵심 고객 변화"
+                    description="30대 고객 방문 비중이 하락하고 있습니다!"
+                    label="위험 신호"
+                    buttonLabel="AI 추천 솔루션"
+                />
 
-            <FloatingButton
-                onClick={() => setShowSheet(true)}
-                className="absolute justify-end bottom-4"
-            />
+                <SummaryCard
+                    value="안전"
+                    label="위험 수준 분석"
+                    visual={<RainbowInlineChart value={0.2} />}
+                />
+
+                <div className="w-full grid grid-cols-2 gap-2">
+                    <SummaryCard
+                        value="맛닭꼬끼오 공릉점"
+                        label="탭해서 업데이트"
+                        animateDelay={0.5}
+                        className="cursor-pointer hover:bg-key-50 transition-colors"
+                        onClick={() => setShowSheet(true)}
+                    />
+
+                    <SummaryCard
+                        value="1203만원"
+                        delta="1.3%"
+                        trend="down"
+                        label="전월 대비 매출"
+                        animateDelay={0.5}
+                    />
+                </div>
+
+                <ExpandableCard
+                    cardDescription="매출 그래프"
+                    isExpandable
+                    onExpandedChange={() => setChartKey(chartKey + 1)}
+                >
+                    <LineChart redrawKey={chartKey} />
+                </ExpandableCard>
+            </div>
 
             <ActionSheet
                 title="맛닭꼬끼오 공릉점"

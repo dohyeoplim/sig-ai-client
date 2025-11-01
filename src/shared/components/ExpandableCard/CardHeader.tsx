@@ -38,12 +38,16 @@ export function CardHeader({
                     />
                 )}
                 <div className="flex flex-col gap-1">
-                    <h2 className="truncate font-body03 text-grey-900">
-                        {title}
-                    </h2>
-                    <p className="font-caption02 text-grey-700">
-                        {description}
-                    </p>
+                    {title && (
+                        <h2 className="truncate font-body03 text-grey-900">
+                            {title}
+                        </h2>
+                    )}
+                    {description && (
+                        <p className="font-caption02 text-grey-700">
+                            {description}
+                        </p>
+                    )}
                 </div>
             </div>
 
@@ -56,7 +60,7 @@ export function CardHeader({
                         e.stopPropagation();
                         onToggle?.();
                     }}
-                    className="grid transition-colors rounded-md size-8 place-items-center hover:bg-grey-100"
+                    className="grid transition-colors rounded-md place-items-center hover:bg-grey-100"
                 >
                     <ChevronRight
                         className={`size-5 text-grey-700 transition-transform ${

@@ -9,7 +9,7 @@ export default function FloatingButton({
     ...props
 }: FloatingButtonProps) {
     return (
-        <div className={`w-full flex ${className}`}>
+        <div className={className}>
             <button {...props}>
                 <div className="grid place-items-center size-16 bg-key-100 hover:bg-key-100/80 scale-95 hover:scale-100 active:scale-90 transition-all rounded-full cursor-pointer">
                     <Plus className="text-grey-800" />
