@@ -1,20 +1,35 @@
 import { useState } from "react";
-import SummaryCard from "@/shared/components/SummaryCard";
-import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
-import BannerWithIcon from "@/shared/components/BannerWithIcon";
+import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
 import ActionSheet from "@/shared/components/ActionSheet";
 import StoreInfoForm from "./components/StoreInfoForm";
-import FloatingButton from "./components/FloatingButton";
+import BannerWithIcon from "@/shared/components/BannerWithIcon";
+import SummaryCard from "@/shared/components/SummaryCard";
+import ExpandableCard from "@/shared/components/ExpandableCard";
+import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
+import { AreaChart } from "@/shared/components/Charts";
+import { useAnalysisData } from "@/shared/api/queries/useAnalysisData";
+import type {
+    QuarterlyClosedRate,
+    QuarterlyRevenueRank,
+} from "@/shared/api/models/MarketAnalysisResponseModel";
 
 export default function HomePage() {
-    const [showSheet, setShowSheet] = useState(true);
+    const [showSheet, setShowSheet] = useState(false);
+    const [redraw, bump] = useRedrawKeys(["revenue", "closed"] as const);
 
     const onCloseSheet = () => {
         setShowSheet(false);
     };
 
+    const { isPending, error, data, isFetching } = useAnalysisData({
+        quarter: "827004",
+        storeId: 1,
+        count: 3,
+        useMock: true,
+    });
+
     return (
-        <>
+        <div className="relative">
             <div className="w-full grid grid-cols-1 gap-2">
                 <BannerWithIcon
                     title="핵심 고객 변화"
@@ -22,14 +37,20 @@ export default function HomePage() {
                     label="위험 신호"
                     buttonLabel="AI 추천 솔루션"
                 />
-
                 <SummaryCard
                     value="안전"
                     label="위험 수준 분석"
                     visual={<RainbowInlineChart value={0.2} />}
                 />
-
                 <div className="w-full grid grid-cols-2 gap-2">
+                    <SummaryCard
+                        value="맛닭꼬끼오 공릉점"
+                        label="탭해서 업데이트"
+                        animateDelay={0.5}
+                        className="cursor-pointer hover:bg-key-50 transition-colors"
+                        onClick={() => setShowSheet(true)}
+                    />
+
                     <SummaryCard
                         value="1203만원"
                         delta="1.3%"
@@ -37,18 +58,60 @@ export default function HomePage() {
                         label="전월 대비 매출"
                         animateDelay={0.5}
                     />
-
-                    <SummaryCard
-                        value="4.7%"
-                        label="상권 고정 비용 상승률"
-                        animateDelay={0.5}
-                    />
                 </div>
+                {!error && (
+                    <ExpandableCard
+                        cardDescription={`상권 매출 그래프 ${
+                            isPending || isFetching ? "(로딩 중)" : ""
+                        }`}
+                        isExpandable
+                        defaultExpanded
+                        onExpandedChange={(expanded) =>
+                            expanded && bump("revenue")
+                        }
+                    >
+                        {data && (
+                            <AreaChart<QuarterlyRevenueRank>
+                                redrawKey={redraw.revenue}
+                                data={
+                                    data.data.revenueComparison
+                                        .quarterlyRevenueRanks
+                                }
+                                dataKey={{
+                                    x: "quarter",
+                                    y: ["revenue"],
+                                }}
+                            />
+                        )}
+                    </ExpandableCard>
+                )}
 
-                <button onClick={() => setShowSheet(true)}>Sheet</button>
+                {!error && (
+                    <ExpandableCard
+                        cardDescription={`상권 내 폐업 가게 수 ${
+                            isPending || isFetching ? "(로딩 중)" : ""
+                        }`}
+                        isExpandable
+                        onExpandedChange={(expanded) =>
+                            expanded && bump("closed")
+                        }
+                    >
+                        {data && (
+                            <AreaChart<QuarterlyClosedRate>
+                                redrawKey={redraw.closed}
+                                data={
+                                    data.data.closedComparison
+                                        .quarterlyClosedRates
+                                }
+                                dataKey={{
+                                    x: "quarter",
+                                    y: ["closedStoreCount"],
+                                }}
+                            />
+                        )}
+                    </ExpandableCard>
+                )}
             </div>
-
-            <FloatingButton />
 
             <ActionSheet
                 title="맛닭꼬끼오 공릉점"
@@ -58,6 +121,6 @@ export default function HomePage() {
             >
                 <StoreInfoForm afterSubmit={onCloseSheet} />
             </ActionSheet>
-        </>
+        </div>
     );
 }

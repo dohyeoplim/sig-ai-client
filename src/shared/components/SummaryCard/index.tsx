@@ -10,8 +10,10 @@ export default function SummaryCard({
     trend,
     label,
     visual,
+    icon,
     animateDelay,
     className,
+    ...props
 }: SummaryCardProps) {
     const { display, numericPart, suffix, showSuffix } = useAnimatedNumber(
         value,
@@ -24,17 +26,24 @@ export default function SummaryCard({
             className={`w-full flex flex-col justify-between p-4 card-designed ${
                 visual ? "h-26" : "h-21"
             } ${className}`}
+            {...props}
         >
             <div className="w-full flex items-center justify-between">
-                {numericPart !== null ? (
-                    <AnimatedValue
-                        display={display}
-                        suffix={suffix}
-                        showSuffix={showSuffix}
-                    />
-                ) : (
-                    <span className="font-body01 text-grey-900">{value}</span>
-                )}
+                <div className="flex items-center gap-1">
+                    {numericPart !== null ? (
+                        <AnimatedValue
+                            display={display}
+                            suffix={suffix}
+                            showSuffix={showSuffix}
+                        />
+                    ) : (
+                        <span className="font-body01 text-grey-900">
+                            {value}
+                        </span>
+                    )}
+
+                    <div className="text-grey-900">{icon}</div>
+                </div>
 
                 {delta && trend && showDeltaNow && (
                     <motion.div

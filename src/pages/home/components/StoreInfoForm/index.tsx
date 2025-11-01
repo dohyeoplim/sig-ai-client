@@ -1,7 +1,7 @@
-import TextInput from "@/shared/components/FormComponents/TextInput";
-import TextSelect from "@/shared/components/FormComponents/TextSelect";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import TextInput from "@/shared/components/FormComponents/TextInput";
+import TextSelect from "@/shared/components/FormComponents/TextSelect";
 
 type StoreInfoFormProps = {
     formID?: string;

@@ -12,7 +12,7 @@ export default function TextInput({
     className,
     label,
     error,
-    required = true,
+    required,
     type = "text",
     ...props
 }: TextInputProps) {

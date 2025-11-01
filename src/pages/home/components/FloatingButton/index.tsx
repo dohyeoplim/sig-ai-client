@@ -1,9 +1,20 @@
 import { Plus } from "lucide-react";
 
-export default function FloatingButton() {
+type FloatingButtonProps = {
+    className?: string;
+} & React.ComponentProps<"button">;
+
+export default function FloatingButton({
+    className,
+    ...props
+}: FloatingButtonProps) {
     return (
-        <div className="absolute grid place-items-center size-16 bg-key-100 hover:bg-key-100/80 hover:scale-105 active:scale-95 transition-all rounded-full cursor-pointer">
-            <Plus className="text-grey-800" />
+        <div className={className}>
+            <button {...props}>
+                <div className="grid place-items-center size-16 bg-key-100 hover:bg-key-100/80 scale-95 hover:scale-100 active:scale-90 transition-all rounded-full cursor-pointer">
+                    <Plus className="text-grey-800" />
+                </div>
+            </button>
         </div>
     );
 }
