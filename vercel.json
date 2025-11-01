@@ -1,8 +1,15 @@
 {
+    "framework": "vite",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
     "rewrites": [
         {
             "source": "/api/(.*)",
             "destination": "http://3.35.81.101:8080/$1"
+        },
+        {
+            "source": "/((?!api|assets|static|public|favicon\\.ico|robots\\.txt|manifest\\.webmanifest|service-worker\\.js|.*\\..*).*)",
+            "destination": "/index.html"
         }
     ]
 }
