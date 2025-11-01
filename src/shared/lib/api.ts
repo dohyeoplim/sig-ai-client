@@ -1,7 +1,7 @@
 import { ApiClient, type OpenAPIConfig } from "@/api";
 
 const config: OpenAPIConfig = {
-    BASE: import.meta.env.VITE_API_URL || "/api",
+    BASE: "/api",
     WITH_CREDENTIALS: false,
     CREDENTIALS: "omit",
     VERSION: "1",

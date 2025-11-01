@@ -10,9 +10,7 @@ export const useSession = create<SessionState>()(
 
             signIn: async (phoneNumber: string) => {
                 const res = await fetch(
-                    `${
-                        import.meta.env.VITE_API_URL
-                    }/api/v1/member/phone/${encodeURIComponent(phoneNumber)}`
+                    `/api/v1/member/phone/${encodeURIComponent(phoneNumber)}`
                 );
                 if (!res.ok) throw new Error("User not found");
                 const json = await res.json();
