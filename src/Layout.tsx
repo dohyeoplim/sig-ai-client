@@ -6,7 +6,7 @@ export default function Layout() {
         <>
             <Header />
             <div className="max-w-xl mx-auto px-4 pt-20 h-svh">
-                <main className="overflow-x-hidden">
+                <main className="overflow-x-hidden h-full">
                     <Outlet />
                 </main>
             </div>
