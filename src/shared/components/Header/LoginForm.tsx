@@ -55,7 +55,7 @@ export default function LoginForm({
                         className="font-body06 w-full py-3.5 bg-key-100 disabled:bg-transparent disabled:text-grey-700 text-grey-900 disabled:cursor-not-allowed hover:bg-key-100 cursor-pointer transition-colors rounded-xl"
                         disabled={!(isValid && dirty)}
                     >
-                        로그인
+                        로그인 / 회원가입
                     </button>
                 </form>
             )}
