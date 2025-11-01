@@ -9,7 +9,9 @@
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "api:gen": "openapi -i ./api-docs.json -o ./src/api -c fetch --name ApiClient"
+        "api:download": "curl -s http://3.35.81.101:8080/v3/api-docs -o ./api-docs.json",
+        "api:gen": "openapi -i ./api-docs.json -o ./src/api -c fetch --name ApiClient",
+        "api:update": "pnpm run api:download && pnpm run api:gen"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.16",

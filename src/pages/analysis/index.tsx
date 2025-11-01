@@ -9,7 +9,7 @@ import RainbowInlineChart from "@/shared/components/InlineCharts/Rainbow";
 // import { useAnalyzeMarket } from "@/features/analysis/api";
 import VanillaTextSelect from "@/shared/components/FormComponents/NonFormik/VanillaTextSelect";
 import { generateQuarterOptions } from "@/shared/utils/generateQuarterOptions";
-import { RefreshCcw } from "lucide-react";
+import { Plus, RefreshCcw } from "lucide-react";
 // import ExpandableCard from "@/shared/components/ExpandableCard";
 // import { AreaChart } from "@/shared/components/Charts";
 // import useRedrawKeys from "@/shared/components/Charts/useRedrawKeys";
@@ -65,11 +65,20 @@ export default function AnalysisPage() {
                         options={quarterOptions}
                         value={quarter}
                         onChange={(v) => setQuarter(v.target.value)}
+                        className="h-11"
                     />
 
-                    <button className="card-designed size-[45px] grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all">
-                        <RefreshCcw size={16} />
-                    </button>
+                    <div className="flex items-center gap-1">
+                        <button
+                            className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all"
+                            onClick={() => setShowSheet(true)}
+                        >
+                            <Plus size={18} />
+                        </button>
+                        <button className="card-designed size-11 grid place-items-center rounded-full cursor-pointer scale-95 hover:scale-100 active:scale-80 text-grey-800 hover:text-grey-900 transition-all">
+                            <RefreshCcw size={16} />
+                        </button>
+                    </div>
                 </div>
 
                 <SummaryCard
@@ -77,13 +86,22 @@ export default function AnalysisPage() {
                     label="위험 수준 분석"
                     visual={<RainbowInlineChart value={0.2} />}
                 />
+
                 <div className="w-full grid grid-cols-2 gap-2">
-                    <SummaryCard
+                    {/* <SummaryCard
                         value="맛닭꼬끼오 공릉점"
                         label="탭해서 업데이트"
                         animateDelay={0.5}
                         className="cursor-pointer hover:bg-key-50 transition-colors"
                         onClick={() => setShowSheet(true)}
+                    /> */}
+
+                    <SummaryCard
+                        value="1203만원"
+                        delta="1.3%"
+                        trend="down"
+                        label="전월 대비 매출"
+                        animateDelay={0.5}
                     />
 
                     <SummaryCard
