@@ -17,5 +17,14 @@ export default defineConfig({
             "@": path.resolve(__dirname, "src"),
         },
     },
-    base: "/sig-ai-client/",
+    base: "/",
+    server: {
+        proxy: {
+            "/api": {
+                target: "http://3.35.81.101:8080",
+                changeOrigin: true,
+                secure: false,
+            },
+        },
+    },
 });
