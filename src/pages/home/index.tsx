@@ -8,7 +8,7 @@ export default function HomePage() {
         <div className="flex flex-col pt-4 gap-12">
             <Hero />
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
                 <InfiniteCarousel height="84px" speed={8}>
                     {Array.from({ length: 8 }).map((_, i) => (
                         <div key={i} className="px-2">
