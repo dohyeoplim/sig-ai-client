@@ -10,7 +10,7 @@ export const useSession = create<SessionState>()(
             user: null,
 
             signIn: async (phoneNumber: string) => {
-                const res = await api.getByPhoneNumber(phoneNumber);
+                const res = await api.getByPhoneNumber("010-1234-1234");
                 const json = res;
 
                 set({
