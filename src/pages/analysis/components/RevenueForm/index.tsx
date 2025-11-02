@@ -61,13 +61,13 @@ export default function RevenueForm({
     const createRevenue = useCreateRevenue(storeId);
 
     const initialValues: StoreRevenueReq = {
-        monthlyRevenue: 0,
-        deliverySalesRatio: 0,
-        maleCustomer2030Ratio: 0,
-        maleCustomer40PlusRatio: 0,
-        returningCustomerRatio: 0,
-        year: 2025,
-        month: 11,
+        monthlyRevenue: 15800000,
+        deliverySalesRatio: 70,
+        maleCustomer2030Ratio: 38,
+        maleCustomer40PlusRatio: 25,
+        returningCustomerRatio: 50,
+        year: 2024,
+        month: 8,
         storeId,
     };
 

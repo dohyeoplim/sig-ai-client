@@ -47,7 +47,7 @@ export default function AnalysisPage() {
 
     useEffect(() => {
         dangerPrediction.mutate({
-            storeId: 1,
+            storeId: 2,
             quarter,
             monthsOfOperation: "12개월",
         });
